@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\linespread{1.5}
+\usepackage{listings}
+\usepackage{eurosym}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{listings}
+\usepackage{float}
+\usepackage[backend=bibtex,style=numeric,citestyle=numeric]{biblatex}
+\addbibresource{bibliography.bib}
+\author{Student Number: 170027195}
+\title{Dynamic Session Types}
+\begin{document}
+\maketitle
+\section{Description}
+When communicating over a protocol, errors can occur throughout the session which corrupt the state of communication between the parties, this corruption can mean that further communication is impossible, and at worst lead to security vulnerabilites. To navigate around this, in part, session types have been developed - these lay the groundwork for “acceptable” communication over a protocol, allowing for the session to self check to ensure that the state is valid. A type relating to the respective protocol is produced, this is a programmatic representation of the expected inputs and outputs in all cases of the protocol’s features, which is then checked against the “real world” implementation of the protocol. Two approaches can be used to perform this analysis; static checking, which checks the state of the communication is valid at compile time and dynamic checking, which performs the analysis at run time as the program is executing. The aim of this project is to produce a working library that implements dynamically checked session types in Java, allowing for the user to define acceptable protocol communication and have the state consistently checked as transaction of messages between parties occurs.
+\section{Objectives}
+\subsection{Primary}
+\begin{itemize}
+	\item Produce a literature review which provides a strong introduction to session types - the problems that led to their creation, current examples of their application and language-specific implementation details.
+	\item Produce a library for in, which provides a sound implementation of session types, in a well maintained, documented and extensible manner.
+	\item Produce a number of “showcases”, showing the application of the session types library in practice, how they change the execution of the program and what advantages and disadvantages this comes with.
+\end{itemize}
+\subsection{Secondary}
+\begin{itemize}
+	\item Integrate the library with modern Java package managers to allow for external users to download and use the library on their machine.
+	\item Compare the performance of dynamic session type implementations to statically checked versions of the same program.
+	\item Allow for the users to access the functionality of the library through custom Java annotations (@SessionType(x))
+\end{itemize}
+\section{Ethics}
+The ethical approval process for my thesis is simple due to its engineering focused nature. The ethical board is largely concerned with the use of human subjects - which my project will not use, and therefore the possibility of physical and psychological harm being caused is a non-factor. There are no potential conflicts of interest involved in the development of the library, and funding is also not a variable that needs considered during the approval process in this instance.
+\section{Resources}
+The resources required for the implementation of the session types library are mostly simple in a hardware sense, a modern computer capable of running Java programs will be required. However, from a software perspective there may be a requirement for the computer to have build tools such as Gradle installed, these will be outlined in the project requirements. Valid licenses will be required for the IDE and other development software used, this will likely by IDEA IntelliJ Ultimate edition - which has a special status for academic use to allow for it to be used free of charge.
+
+\end{document}
