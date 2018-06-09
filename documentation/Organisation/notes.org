@@ -1,0 +1,6 @@
+* Dynamic Session Types Thesis
+** Bookmarks
+*** "Session Types for Rust" - Munksgaard
+    http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf
+*** "Session types in programming languages---a collection of implementations"
+http://groups.inf.ed.ac.uk/abcd/session-implementations.html
