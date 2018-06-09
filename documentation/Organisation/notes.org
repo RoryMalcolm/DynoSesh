@@ -1,6 +1,16 @@
 * Dynamic Session Types Thesis
 ** Bookmarks
+*** "Session Types: Towards safe and fast reconfigurable programming"
+    http://www.doc.ic.ac.uk/~cn06/pub/2012/heart/paper.pdf
 *** "Session Types for Rust" - Munksgaard
     http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf
-*** "Session types in programming languages---a collection of implementations"
-http://groups.inf.ed.ac.uk/abcd/session-implementations.html
+*** "Session types in programming languages --- a collection of implementations"
+    http://groups.inf.ed.ac.uk/abcd/session-implementations.html
+** Strategies
+*** Extend class
+    We can provide a superclass "Sendable<T>" which when extend would allow for them to be sent from a server via a send(Servable) method
+    The sendable class could have a method entitled T getPayload() which would allow for us to retrieve the payload of the object... checked against the defined ProtocolStack
+* TODOs
+** TODO Reading 
+   Read about Erlang and Akka's message passing framework
+   
