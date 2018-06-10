@@ -23,11 +23,11 @@ provides a strategy for the management of parallel programs.
 
 Instead of normal parallel execution
 
-           |  -> [Method A] -> |                  |
-           |                   | <- [Method B] <- |
-           |                   |                  |
-           |                   | -> [Method B] -> |
-           | <- [Method A] <-  |                  |
+           |  -> [Method A] -> |  A  |                  |
+           |                   | A+B | <- [Method B] <- |
+           |                   | A+B |                  |
+           |                   |  A  | -> [Method B] -> |
+           | <- [Method A] <-  |  A  |                  |
 
 It provides an "actor" in the main work thread which has an "inbox" to which 
 methods are passed and blocking of execution occurs, when one task is finished
