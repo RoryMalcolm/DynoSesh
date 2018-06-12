@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\linespread{1.5}
+\usepackage{listings}
+\usepackage{eurosym}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{listings}
+\usepackage{float}
+\usepackage[backend=bibtex,style=numeric,citestyle=numeric]{biblatex}
+\addbibresource{bibliography.bib}
+\author{Student Number: 170027195}
+\title{Dynamic Session Types}
+\begin{document}
+	\maketitle
+	\pagebreak
+	\tableofcontents
+	\pagebreak
+	\section{Literature Review}
+	\subsection{The Actor Model}
+	The actor model introduces a model for the control of parallel computation to avoid potential errors, such as deadlock or race conditions. The actor model places a number of rules upon what an actor can do, an actor has 3 valid “actions”; to create another actor, to send a message to another actor or to instruct itself on how to deal with the next message it receives.
+	
+	Each actor is assigned with some concept of an “address”, this provides a mechanism for an actor to communicate with other actors within the system, passing messages between each other as needed. When messages are passed from one actor to another, they are stored in the actors individual task queue; these tasks are then executed one by one, with an actor polling the queue for new tasks after a single unit of work has been completed. Actors also have some form of private state, this allows for an actor to be aware of information relating to the current status of its execution and the execution of tasks prior to the task is is currently executing. Through these three components, the address, the individual task queue and the private state, a sense of the decoupled nature of the actor model can be realised. The goal is to fully abstract and decouple actors from each other, with communication and synchronisation between actors only occurring via the message passing framework.
+	
+	There are a variety of implementations of the actor model, some research-focused languages are designed entirely entire around the concept, such as Rosette\cite{Tomlinson:1988:ROC:67387.67410}. Other implementations that are more popular amongst the wider general purpose programming community are Erlang’s concurrent and distributed computation utilities, and Akka, which provides an actor model framework for languages that run on the Java Virtual Machine, such as Scala, Java and Kotlin. 
+	Erlang is a functional programming language which has built in message passing capabilities for communication between processes. The ! operator is used to send a message to the identified process, an example of a program which sends the word “Ping” to an actor, which then returns “Pong” a number of times is listed in the Erlang documentation\cite{ErlangConcDocs}.
+	\begin{lstlisting}[language=Erlang, frame=single, numbers=left, caption=Ping Pong in concurrent Erlang\cite{ErlangConcDocs}]
+-module(tut15).
+
+-export([start/0, ping/2, pong/0]).
+
+ping(0, Pong_PID) ->
+	Pong_PID ! finished,
+	io:format("ping finished~n", []);
+
+ping(N, Pong_PID) ->
+	Pong_PID ! {ping, self()},
+	receive
+		pong ->
+			io:format("Ping received pong~n", [])
+	end,
+	ping(N - 1, Pong_PID).
+
+pong() ->
+	receive
+		finished ->
+			io:format("Pong finished~n", []);
+		{ping, Ping_PID} ->
+			io:format("Pong received ping~n", []),
+			Ping_PID ! pong,
+			pong()
+	end.
+
+start() ->
+	Pong_PID = spawn(tut15, pong, []),
+	spawn(tut15, ping, [3, Pong_PID]).
+	\end{lstlisting}
+
+	\subsection{Implementations of Session Types in Object Orientated Languages}
+	\pagebreak
+	\printbibliography
+\end{document}
