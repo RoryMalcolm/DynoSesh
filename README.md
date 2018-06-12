@@ -1,1 +1,5 @@
-DynoSesh
+# DynoSesh
+
+## Description
+
+When communicating over a protocol, errors can occur throughout the session which corrupt the state of communication between the parties, this corruption can mean that further communication is impossible, and at worst lead to security vulnerabilites. To navigate around this, in part, session types have been developed - these lay the groundwork for “acceptable” communication over a protocol, allowing for the session to self check to ensure that the state is valid. A type relating to the respective protocol is produced, this is a programmatic representation of the expected inputs and outputs in all cases of the protocol’s features, which is then checked against the “real world” implementation of the protocol. Two approaches can be used to perform this analysis; static checking, which checks the state of the communication is valid at compile time and dynamic checking, which performs the analysis at run time as the program is executing. The aim of this project is to produce a working library that implements dynamically checked session types in Java, allowing for the user to define acceptable protocol communication and have the state consistently checked as transaction of messages between parties occurs.

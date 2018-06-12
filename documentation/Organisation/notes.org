@@ -1,0 +1,42 @@
+* Dynamic Session Types Thesis
+** Bookmarks
+*** "Session Types: Towards safe and fast reconfigurable programming"
+    http://www.doc.ic.ac.uk/~cn06/pub/2012/heart/paper.pdf
+*** "Session Types for Rust" - Munksgaard
+    http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf
+*** "Session types in programming languages --- a collection of implementations"
+    http://groups.inf.ed.ac.uk/abcd/session-implementations.html
+** Strategies
+*** Extend class
+    We can provide a superclass "Sendable<T>" which when extend would allow for them to be sent from a server via a send(Servable) method
+    The sendable class could have a method entitled T getPayload() which would allow for us to retrieve the payload of the object... checked against the defined ProtocolStack
+* TODOs
+** TODO
+   Reading
+   Read about Erlang and Akka's message passing framework
+  
+ 
+* Reading
+** Actor Model
+   The actor model, as implemented in Erlang and Akka,
+provides a strategy for the management of parallel programs.
+
+Instead of normal parallel execution
+
+           |  -> [Method A] -> |  A  |                  |
+           |                   | A+B | <- [Method B] <- |
+           |                   | A+B |                  |
+           |                   |  A  | -> [Method B] -> |
+           | <- [Method A] <-  |  A  |                  |
+
+It provides an "actor" in the main work thread which has an "inbox" to which 
+methods are passed and blocking of execution occurs, when one task is finished
+the inbox is then polled and new tasks are taken from the inbox and executed.
+
+           | -> [Method A] -> | A |                  |
+           |                  | A | <- [Method B] <- |
+           |                  | A |                  |
+           | <- [Method A] <- | B |                  |
+           |                  | B |                  |
+           |                  | B | -> [Method B] -> |
+
