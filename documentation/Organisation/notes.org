@@ -14,8 +14,6 @@
 ** TODO
    Reading
    Read about Erlang and Akka's message passing framework
-  
- 
 * Reading
 ** Actor Model
    The actor model, as implemented in Erlang and Akka,
@@ -40,3 +38,24 @@ the inbox is then polled and new tasks are taken from the inbox and executed.
            |                  | B |                  |
            |                  | B | -> [Method B] -> |
 
+
+* Context Plan and Survey
+
+Around references - general "lit review" overview of problem space, other solutions, dynamic vs static
+
+Checked system your end vs outwith the context of your environment
+
+! [
+  
+]
+
+** Actor Model
+** Session Types
+** Static Session Type Implementations
+** Dynamic Session Types Implementations
+** Security Problems Regarding Protocols
+   Talk about why my tertiary protocols matter 
+   Kerboros - https://en.wikipedia.org/wiki/Security_protocol_notation
+
+** Plan
+Week to week annotation of the status of work
