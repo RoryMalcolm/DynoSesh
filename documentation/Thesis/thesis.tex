@@ -5,6 +5,10 @@
 \usepackage{listings}
 \usepackage{eurosym}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{
+	hyperindex=true
+}
 \graphicspath{ {img/} }
 \usepackage{listings}
 \usepackage{float}
@@ -31,8 +35,8 @@
 	Each actor is assigned with some concept of an “address”, this provides a mechanism for an actor to communicate with other actors within the system, passing messages between each other as needed. When messages are passed from one actor to another, they are stored in the actors individual task queue; these tasks are then executed one by one, with an actor polling the queue for new tasks after a single unit of work has been completed. Actors also have some form of private state, this allows for an actor to be aware of information relating to the current status of its execution and the execution of tasks prior to the task is is currently executing. Through these three components, the address, the individual task queue and the private state, a sense of the decoupled nature of the actor model can be realised. The goal is to fully abstract and decouple actors from each other, with communication and synchronisation between actors only occurring via the message passing framework.
 	
 	There are a variety of implementations of the actor model, some research-focused languages are designed entirely entire around the concept, such as Rosette\cite{Tomlinson:1988:ROC:67387.67410}. Other implementations that are more popular amongst the wider general purpose programming community are Erlang’s concurrent and distributed computation utilities, and Akka, which provides an actor model framework for languages that run on the Java Virtual Machine, such as Scala, Java and Kotlin. 
-	Erlang is a functional programming language which has built in message passing capabilities for communication between processes. The \texttt{!} operator is used to send a message to the identified process, an example of a program which sends the word “Ping” to an actor, which then returns “Pong” a number of times is listed in the Erlang documentation\cite{ErlangConcDocs}.
-	\begin{lstlisting}[language=erlang, frame=single, numbers=left, caption=Ping Pong in concurrent Erlang\cite{ErlangConcDocs}]
+	Erlang is a functional programming language which has built in message passing capabilities for communication between processes. The \texttt{!} operator is used to send a message to the identified process, an example of a program which sends the word “Ping” to an actor, which then returns “Pong” a number of times is listed in the Erlang documentation\cite{ErlangConcDocs} as displayed in listing \ref{lst:erlangDocs}.
+	\begin{lstlisting}[label={lst:erlangDocs}, language=erlang, frame=single, numbers=left, caption=Ping Pong in concurrent Erlang\cite{ErlangConcDocs}]
 -module(tut15).
 
 -export([start/0, ping/2, pong/0]).
@@ -66,7 +70,19 @@ start() ->
 	\subsection{Static Session Type Implementations}
 	Static implementations of session types, as expressed in section \ref{session types} perform the checking of the validity of the protocol implementation at compile time. There are multiple real world implementations for a host of languages that implement such a system in varying forms, from Java through to Haskell\cite{lindley2016embedding}. 
 	
-	Some statically typed implementations, such as SessionJ\cite{Hu:2010:TES:1883978.1884001} for Java implement extensions to the language they are built for to provide this functionality. SessionJ implements a \texttt{protocol} keyword and subsequent domain specific language for expressing the contents of a protocol specification.
+	Some statically typed implementations, such as SessionJ\cite{Hu:2010:TES:1883978.1884001} for Java implement extensions to the language they are built for to provide this functionality. SessionJ implements a \texttt{protocol} keyword and subsequent domain specific language for expressing the contents of a protocol specification, an example of this is show in listing \ref{lst:sessionJ}.
+	\begin{lstlisting}[language=java, frame=single, numbers=left, caption=An implementation of a Master-Worker ghost points exchange in SessionJ\cite{Hu:2010:TES:1883978.1884001}, label={lst:sessionJ}]
+protocol masterToWorker {
+	cbegin. // Request the Worker service.
+	!<int>. // Send matrix size.
+	![ 	// Enter main loop.
+		!<double[]>. 	// Send our boundary values.
+		?(double[]). 	// Receive Worker ghost points.
+		?(double) 	// Receive convergence data.
+	]*. 		// After the last iteration...
+	?(double[][]) 	// ...receive the final results.
+}
+	\end{lstlisting}
 	\subsection{Dynamic Session Types Implementations}
 	\subsection{Security Problems Regarding Protocols}
 	\pagebreak
