@@ -8,7 +8,7 @@
 \graphicspath{ {img/} }
 \usepackage{listings}
 \usepackage{float}
-\usepackage[backend=bibtex,style=numeric,citestyle=numeric]{biblatex}
+\usepackage[backend=bibtex,style=numeric,citestyle=numeric,sorting=none]{biblatex}
 \addbibresource{bibliography.bib}
 \author{Student Number: 170027195}
 \title{Dynamic Session Types}
@@ -18,36 +18,43 @@
 	\tableofcontents
 	\pagebreak
 	\section{Literature Review}
+	\subsection{Session Types} \label{session types}
+	When systems attempt to communicate over a protocol, the constraints of “acceptable” communication must be defined before and during transmission. The rubric to guarantee that protocol communication has fit within these boundaries, is however, less clear. If errors in transmission are to occur, future communication may become infeasible, and at worst, security issues could be introduced.
+	
+	Honda derived session types\cite{honda1993types}\cite{takeuchi1994interaction}\cite{honda1998language} as a strategy to mitigate potential issues that stem from the inability to properly check that an implementation of the protocol correctly matches the standard. In the 1994 paper\cite{takeuchi1994interaction} they describe the need for an ``abstraction methodology''to describe interactions between ``multiple, possibly distributed, parallel	processes'', going on to state ``Such organization in turn may well be based on a type discipline, which ensures well-typed programs to behave in a principled fashion''. At its core, the session types proposal is for a language or method of describing the expected protocol communication, with a mechanism to check protocol implementations against the type definition, ensuring their correctness. 	Session types take influence from $\pi$-calculus\cite{milner1999communicating}, a process calculus used to model concurrent systems, with the 1994 paper\cite{takeuchi1994interaction} showing the authors adaption of $\pi$-calculus model of ``synchronous communication of values''.
+	
+	After the protocol representation has been described, often using the Scribble formal description language\cite{honda2011scribbling}, a checking process can occur to ensure that the implementation of the protocol matches its structure. The checking process can occur using one of three mechanisms, either statically, where the validity of the implementation is checked at compile time, dynamically at run time, or a hybrid approach is used, a combination of compile time assurance with a layer of run time checking also enforced. Such a hybrid approach is described in Hu and Roshida, 2016\cite{hu2016hybrid} a static checker is used to validate the ``behavioural'' aspects of the system, generating finite state machines and restricting operations that can be performed adhere to a defined state. They then describe a ``light'' dynamically checked solution to ensure that defined channels of communication are used, and then are not re-used without throwing an error.
+	
 	\subsection{The Actor Model}
 	The actor model introduces a model for the control of parallel computation to avoid potential errors, such as deadlock or race conditions. The actor model places a number of rules upon what an actor can do, an actor has 3 valid “actions”; to create another actor, to send a message to another actor or to instruct itself on how to deal with the next message it receives.
 	
 	Each actor is assigned with some concept of an “address”, this provides a mechanism for an actor to communicate with other actors within the system, passing messages between each other as needed. When messages are passed from one actor to another, they are stored in the actors individual task queue; these tasks are then executed one by one, with an actor polling the queue for new tasks after a single unit of work has been completed. Actors also have some form of private state, this allows for an actor to be aware of information relating to the current status of its execution and the execution of tasks prior to the task is is currently executing. Through these three components, the address, the individual task queue and the private state, a sense of the decoupled nature of the actor model can be realised. The goal is to fully abstract and decouple actors from each other, with communication and synchronisation between actors only occurring via the message passing framework.
 	
 	There are a variety of implementations of the actor model, some research-focused languages are designed entirely entire around the concept, such as Rosette\cite{Tomlinson:1988:ROC:67387.67410}. Other implementations that are more popular amongst the wider general purpose programming community are Erlang’s concurrent and distributed computation utilities, and Akka, which provides an actor model framework for languages that run on the Java Virtual Machine, such as Scala, Java and Kotlin. 
-	Erlang is a functional programming language which has built in message passing capabilities for communication between processes. The ! operator is used to send a message to the identified process, an example of a program which sends the word “Ping” to an actor, which then returns “Pong” a number of times is listed in the Erlang documentation\cite{ErlangConcDocs}.
-	\begin{lstlisting}[language=Erlang, frame=single, numbers=left, caption=Ping Pong in concurrent Erlang\cite{ErlangConcDocs}]
+	Erlang is a functional programming language which has built in message passing capabilities for communication between processes. The \texttt{!} operator is used to send a message to the identified process, an example of a program which sends the word “Ping” to an actor, which then returns “Pong” a number of times is listed in the Erlang documentation\cite{ErlangConcDocs}.
+	\begin{lstlisting}[language=erlang, frame=single, numbers=left, caption=Ping Pong in concurrent Erlang\cite{ErlangConcDocs}]
 -module(tut15).
 
 -export([start/0, ping/2, pong/0]).
 
 ping(0, Pong_PID) ->
 	Pong_PID ! finished,
-	io:format("ping finished~n", []);
+	io:format(``ping finished~n'', []);
 
 ping(N, Pong_PID) ->
 	Pong_PID ! {ping, self()},
 	receive
 		pong ->
-			io:format("Ping received pong~n", [])
+			io:format(``Ping received pong~n'', [])
 	end,
 	ping(N - 1, Pong_PID).
 
 pong() ->
 	receive
 		finished ->
-			io:format("Pong finished~n", []);
+			io:format(``Pong finished~n'', []);
 		{ping, Ping_PID} ->
-			io:format("Pong received ping~n", []),
+			io:format(``Pong received ping~n'', []),
 			Ping_PID ! pong,
 			pong()
 	end.
@@ -56,8 +63,12 @@ start() ->
 	Pong_PID = spawn(tut15, pong, []),
 	spawn(tut15, ping, [3, Pong_PID]).
 	\end{lstlisting}
-
-	\subsection{Implementations of Session Types in Object Orientated Languages}
+	\subsection{Static Session Type Implementations}
+	Static implementations of session types, as expressed in section \ref{session types} perform the checking of the validity of the protocol implementation at compile time. There are multiple real world implementations for a host of languages that implement such a system in varying forms, from Java through to Haskell\cite{lindley2016embedding}. 
+	
+	Some statically typed implementations, such as SessionJ\cite{Hu:2010:TES:1883978.1884001} for Java implement extensions to the language they are built for to provide this functionality. SessionJ implements a \texttt{protocol} keyword and subsequent domain specific language for expressing the contents of a protocol specification.
+	\subsection{Dynamic Session Types Implementations}
+	\subsection{Security Problems Regarding Protocols}
 	\pagebreak
 	\printbibliography
 \end{document}
