@@ -7,22 +7,49 @@ import java.util.Stack;
  * TODO: Work out how to express more complicated protocols - potentially a graph representation of
  * TODO: finite state machine?
  */
-class Protocol {
+public class Protocol {
   private Stack<Class<? extends Sendable>> protocol;
 
-  Protocol() {
+  /**
+   * The default constructor for the Protocol class.
+   * <p>
+   *   Protocol will eventually move to using a graph representation of a finite state machine
+   *
+   *   Currently however it uses a stack to represent "layers" of communication
+   * </p>
+   */
+  public Protocol() {
     this.protocol = new Stack<>();
   }
 
-  Protocol(Stack<Class<? extends Sendable>> protocol) {
+
+  /**
+   * The parameterised constructor for the Protocol class.
+   * <p>
+   *   Protocol will eventually move to using a graph representation of a finite state machine
+   *
+   *   Currently however it uses a stack to represent "layers" of communication
+   * </p>
+   * @param protocol The protocol implementation
+   */
+  public Protocol(Stack<Class<? extends Sendable>> protocol) {
     this.protocol = protocol;
   }
 
-  void addLayer(Class<? extends Sendable> forAdding) {
+  /**
+   * Adds a layer to the protocol.
+   * @param forAdding The layer for adding.
+   */
+  public void addLayer(Class<? extends Sendable> forAdding) {
     this.protocol.push(forAdding);
   }
 
-  Class<? extends Sendable> getLayer() {
+
+  /**
+   * Gets a layer on the top of the protocol.
+   * @return The layer on top of the protocol
+   */
+  public Class<? extends Sendable> getLayer() {
     return this.protocol.pop();
   }
 }
