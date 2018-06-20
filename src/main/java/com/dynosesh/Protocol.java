@@ -4,7 +4,8 @@ import java.util.Stack;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.]
- * TODO: Work out how to express more complicated protocols - potentially a tree ?
+ * TODO: Work out how to express more complicated protocols - potentially a graph representation of
+ * TODO: finite state machine?
  */
 class Protocol {
   private Stack<Class<? extends Sendable>> protocol;
