@@ -36,14 +36,18 @@ public class ProtocolMonitor {
     this.actorMap.put(key, actor);
   }
 
+  public Actor getActor(String key) {
+    return this.actorMap.get(key);
+  }
   /**
    * Sends a message, and ensures it complies to the protocol.
+   * @param sender The actor sending the message
    * @param address The address of the actor to send the message to
    * @param payload The message to send to an actor
    * @throws InvalidSessionException Thrown when there is a session type error
    */
-  public void send(String address, Sendable payload) throws InvalidSessionException {
-    if (protocol.getLayer() == payload.getClass()) {
+  public void send(Actor sender, String address, Sendable payload) throws InvalidSessionException {
+    if (this.protocol.canProgress(payload)) {
       this.actorMap.get(address).addTask(payload);
     } else {
       throw new InvalidSessionException();

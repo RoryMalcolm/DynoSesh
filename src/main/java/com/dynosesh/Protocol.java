@@ -1,6 +1,9 @@
 package com.dynosesh;
 
-import java.util.Stack;
+import com.dynosesh.protocol.Node;
+import com.dynosesh.protocol.ProtocolGraph;
+
+import java.util.ArrayList;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.]
@@ -8,8 +11,8 @@ import java.util.Stack;
  * TODO: finite state machine?
  */
 public class Protocol {
-  private Stack<Class<? extends Sendable>> protocol;
-
+  private ProtocolGraph protocol;
+  private Node currentNode;
   /**
    * The default constructor for the Protocol class.
    * <p>
@@ -19,9 +22,9 @@ public class Protocol {
    * </p>
    */
   public Protocol() {
-    this.protocol = new Stack<>();
+    this.protocol = new ProtocolGraph();
+    this.currentNode = protocol.getStartNode();
   }
-
 
   /**
    * The parameterised constructor for the Protocol class.
@@ -32,24 +35,30 @@ public class Protocol {
    * </p>
    * @param protocol The protocol implementation
    */
-  public Protocol(Stack<Class<? extends Sendable>> protocol) {
+  public Protocol(ProtocolGraph protocol) {
     this.protocol = protocol;
+    this.currentNode = protocol.getStartNode();
   }
 
   /**
    * Adds a layer to the protocol.
    * @param forAdding The layer for adding.
    */
-  public void addLayer(Class<? extends Sendable> forAdding) {
-    this.protocol.push(forAdding);
+  public void addNode(Node forAdding) {
+    this.protocol.addNode(forAdding);
   }
 
+  public boolean canProgress(Sendable payload) {
+    for (Node node : getConnectingNodes()) {
+      if (node.getValue() == payload.getPayload().getClass()) {
+        currentNode = node;
+        return true;
+      }
+    }
+    return false;
+  }
 
-  /**
-   * Gets a layer on the top of the protocol.
-   * @return The layer on top of the protocol
-   */
-  public Class<? extends Sendable> getLayer() {
-    return this.protocol.pop();
+  private ArrayList<Node> getConnectingNodes() {
+    return this.protocol.getConnections(currentNode);
   }
 }

@@ -59,3 +59,9 @@ Checked system your end vs outwith the context of your environment
 
 ** Plan
 Week to week annotation of the status of work
+
+
+**Decisions Made
+
+Implementation of graph -> list of next nodes as opposed to matrix, we care more about where the next link is than
+adding new nodes to the graph!

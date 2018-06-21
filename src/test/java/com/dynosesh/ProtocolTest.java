@@ -1,5 +1,6 @@
 package com.dynosesh;
 
+import com.dynosesh.protocol.Node;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,18 +22,18 @@ public class ProtocolTest {
 
   @Before
   public void setUp() {
-    protocol.addLayer(TestLayer.class);
-    protocol.addLayer(TestLayer.class);
+    protocol.addNode(new Node(new TestLayer("Hello, world!"), true));
+    protocol.addNode(new Node(new TestLayer("Hello, world!"), false));
   }
 
   @Test
   public void testLayerInstanceOf() {
     TestLayer testLayer = new TestLayer("Hello, world!");
-    assertEquals(testLayer.getClass(), protocol.getLayer());
-    assertEquals(testLayer.getClass(), protocol.getLayer());
+    assertEquals(testLayer.getClass(), protocol.canProgress(testLayer));
+    assertEquals(testLayer.getClass(), protocol.canProgress(testLayer));
     boolean thrown = false;
     try {
-      protocol.getLayer();
+      protocol.canProgress(testLayer);
     } catch (Exception e) {
       thrown = true;
     }
