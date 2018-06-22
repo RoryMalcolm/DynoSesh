@@ -2,6 +2,8 @@ package com.dynosesh;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.
+ *
+ * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
 public abstract class Sendable<T> {
 
@@ -10,9 +12,10 @@ public abstract class Sendable<T> {
   /**
    * Used to facilitate communication over a protocol.
    * <p>
-   *   Contains a payload, the type of which is checked to ensure it complies to the protocol
-   *   implementation.
+   * Contains a payload, the type of which is checked to ensure it complies to the protocol
+   * implementation.
    * </p>
+   *
    * @param payload The payload of the message
    */
   public Sendable(T payload) {
@@ -21,6 +24,7 @@ public abstract class Sendable<T> {
 
   /**
    * Returns the payload of the message that was sent over the protocol.
+   *
    * @return The message payload
    */
   public T getPayload() {

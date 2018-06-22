@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Rory Malcolm on 21/06/2018.
+ *
+ * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
 public class Node {
   private ArrayList<Connection> connections;
@@ -16,6 +18,12 @@ public class Node {
     this.value = value.getClass();
     this.connections = new ArrayList<>();
     this.start = start;
+  }
+
+  public Node(Sendable value) {
+    this.value = value.getClass();
+    this.connections = new ArrayList<>();
+    this.start = false;
   }
 
   public Node(Sendable value, ArrayList<Connection> connections, boolean start) {
