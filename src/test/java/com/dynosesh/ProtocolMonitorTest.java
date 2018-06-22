@@ -2,6 +2,8 @@ package com.dynosesh;
 
 import com.dynosesh.exceptions.InvalidSessionException;
 import com.dynosesh.protocol.Node;
+import com.dynosesh.protocol.Protocol;
+import com.dynosesh.protocol.ProtocolFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,9 +22,10 @@ public class ProtocolMonitorTest {
 
   @Before
   public void setUp() {
-    Protocol protocol = new Protocol();
-    protocol.addNode(new Node(new TestLayer("Hello, world!"), true));
-    protocol.addNode(new Node(new TestLayer("Hello, world!"), false));
+    ProtocolFactory protocolFactory = new ProtocolFactory();
+    protocolFactory.addNode(new Node(new TestLayer("Hello, world!"), true));
+    protocolFactory.addNode(new Node(new TestLayer("Hello, world!"), false));
+    Protocol protocol = protocolFactory.build();
     this.protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
       this.protocolMonitor.addActor(String.valueOf(i), new Actor());
@@ -32,10 +35,8 @@ public class ProtocolMonitorTest {
   @Test
   public void send() {
     try {
-      this.protocolMonitor.send(protocolMonitor.getActor("1"),
-          "0", new TestLayer("Hello world!"));
-      this.protocolMonitor.send(this.protocolMonitor.getActor("1"),
-          "0", new TestLayer("Hello world!"));
+      this.protocolMonitor.send("1", new TestLayer("Hello world!"));
+      this.protocolMonitor.send("1", new TestLayer("Hello world!"));
     } catch (InvalidSessionException e) {
       e.printStackTrace();
     }
