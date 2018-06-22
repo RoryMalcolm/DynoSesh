@@ -65,3 +65,10 @@ Week to week annotation of the status of work
 
 Implementation of graph -> list of next nodes as opposed to matrix, we care more about where the next link is than
 adding new nodes to the graph!
+
+The "address" of the actors need to be automatically generated and kept track of over the communication, also
+while we have a schema for knowing what communication is acceptable from which actors the order in which the actors
+start communication should be kept track of BY the protocol rather than pre ordained before hand
+
+the protocol should keep a reference of which actor in the system is which actor and automatically check this as opposed
+to the user imputing it through the address they are posting towards
