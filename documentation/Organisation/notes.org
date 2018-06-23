@@ -38,7 +38,7 @@ the inbox is then polled and new tasks are taken from the inbox and executed.
            |                  | B |                  |
            |                  | B | -> [Method B] -> |
 
-
+           
 * Context Plan and Survey
 
 Around references - general "lit review" overview of problem space, other solutions, dynamic vs static
@@ -49,6 +49,7 @@ Checked system your end vs outwith the context of your environment
   
 ]
 
+** Language Theoretic Security
 ** Actor Model
 ** Session Types
 ** Static Session Type Implementations
