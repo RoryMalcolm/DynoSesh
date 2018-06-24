@@ -12,22 +12,22 @@ import java.util.ArrayList;
 public class Node {
   private ArrayList<Connection> connections;
   private Class<? extends Sendable> value;
-  private boolean start = false;
+  private boolean start;
 
-  public Node(Sendable value, boolean start) {
-    this.value = value.getClass();
+  public Node(Class<? extends Sendable> value, boolean start) {
+    this.value = value;
     this.connections = new ArrayList<>();
     this.start = start;
   }
 
-  public Node(Sendable value) {
-    this.value = value.getClass();
+  public Node(Class<? extends Sendable> value) {
+    this.value = value;
     this.connections = new ArrayList<>();
     this.start = false;
   }
 
-  public Node(Sendable value, ArrayList<Connection> connections, boolean start) {
-    this.value = value.getClass();
+  public Node(Class<? extends Sendable> value, ArrayList<Connection> connections, boolean start) {
+    this.value = value;
     this.connections = connections;
     this.start = start;
   }
