@@ -1,7 +1,6 @@
 package com.dynosesh.protocol;
 
 import com.dynosesh.Sendable;
-import sun.plugin.dom.exception.InvalidStateException;
 
 import java.util.ArrayList;
 
@@ -36,7 +35,7 @@ public class Protocol {
     if (forAdding.isStart() && currentNode == null) {
       currentNode = forAdding;
     } else if (forAdding.isStart() && currentNode != null) {
-      throw new InvalidStateException("There cannot be two start nodes in a graph");
+      throw new IllegalArgumentException("There cannot be two start nodes in a graph");
     }
     this.protocol.addNode(forAdding);
   }
