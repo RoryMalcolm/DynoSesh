@@ -1,4 +1,4 @@
-# DynoSesh
+# DynoSesh [![Build Status](https://travis-ci.com/RoryMalcolm/DynoSesh.svg?token=FQDDF89L6dtyFjq9mPRs&branch=master)](https://travis-ci.com/RoryMalcolm/DynoSesh)
 
 ## Description
 
