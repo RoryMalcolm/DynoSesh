@@ -14,36 +14,57 @@ public class Node {
   private Class<? extends Sendable> value;
   private boolean start;
 
-  public Node(Class<? extends Sendable> value, boolean start) {
-    this.value = value;
-    this.connections = new ArrayList<>();
-    this.start = start;
-  }
-
+  /**
+   * The class used to represent nodes within the finite state machine.
+   * <p>
+   * All correct actions are maintained within the finite state machine represented by nodes on
+   * the graph
+   * </p>
+   * <p>
+   * If a null value is input the node will be treated as a "start node", there can only be one
+   * of these per graph
+   * </p>
+   *
+   * @param value The class value of the node within the graph, if null is a "start node"
+   */
   public Node(Class<? extends Sendable> value) {
     this.value = value;
     this.connections = new ArrayList<>();
-    this.start = false;
+    this.start = value == null;
   }
 
-  public Node(Class<? extends Sendable> value, ArrayList<Connection> connections, boolean start) {
-    this.value = value;
-    this.connections = connections;
-    this.start = start;
-  }
-
+  /**
+   * Adds a connection the the Node.
+   *
+   * @param connection The connection to add to the node
+   */
   public void addConnection(Connection connection) {
     this.connections.add(connection);
   }
 
+  /**
+   * Returns a node's connections as an ArrayList.
+   *
+   * @return The ArrayList of connections
+   */
   public ArrayList<Connection> getConnections() {
     return connections;
   }
 
+  /**
+   * Returns the value within the node.
+   *
+   * @return The value within the node
+   */
   public Class<? extends Sendable> getValue() {
     return value;
   }
 
+  /**
+   * Returns true if the node is a start node.
+   *
+   * @return True if the node is a start node
+   */
   public boolean isStart() {
     return start;
   }

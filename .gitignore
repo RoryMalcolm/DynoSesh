@@ -3,6 +3,7 @@
 gradle/
 gradlew
 gradlew.bat
+build/
 
 documentation/DOER/doer-blx\.bib
 
@@ -35,4 +36,4 @@ documentation/Thesis/thesis\.run\.xml
 documentation/Thesis/thesis\.synctex\.gz
 
 documentation/Thesis/thesis\.out
-/DynoSesh.iml
+DynoSesh.iml

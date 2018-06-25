@@ -27,7 +27,7 @@ public class ProtocolMonitorTest {
   @Before
   public void setUp() {
     ProtocolFactory protocolFactory = new ProtocolFactory();
-    Node startNode = new Node(TestLayer.class, true);
+    Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
     startNode.addConnection(new Connection("1", mediumNode));
@@ -91,5 +91,63 @@ public class ProtocolMonitorTest {
       didThrow = true;
     }
     assertTrue(didThrow);
+  }
+
+  @Test
+  public void httpDemonstration() {
+    class HttpRequest extends Sendable {
+
+      /**
+       * Used to facilitate communication over a protocol.
+       * <p>
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
+       * implementation.
+       * </p>
+       *
+       * @param payload The payload of the message
+       */
+      private HttpRequest(Object payload) {
+        super(payload);
+      }
+    }
+    class HttpResponse extends Sendable {
+
+      /**
+       * Used to facilitate communication over a protocol.
+       * <p>
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
+       * implementation.
+       * </p>
+       *
+       * @param payload The payload of the message
+       */
+      private HttpResponse(Object payload) {
+        super(payload);
+      }
+    }
+
+    ProtocolFactory protocolFactory = new ProtocolFactory();
+    Node startNode = new Node(null);
+    Node mediumNode = new Node(HttpRequest.class);
+    Node finishNode = new Node(HttpResponse.class);
+    startNode.addConnection(new Connection("0", mediumNode));
+    mediumNode.addConnection(new Connection("1", finishNode));
+    protocolFactory.addNode(startNode);
+    protocolFactory.addNode(mediumNode);
+    protocolFactory.addNode(finishNode);
+    this.protocolMonitor = new ProtocolMonitor(protocolFactory.build());
+    for (int i = 0; i < 10; i++) {
+      this.protocolMonitor.addActor(String.valueOf(i), new Actor());
+    }
+    try {
+      this.protocolMonitor.send("0",
+          "1", new HttpRequest("GET"));
+      this.protocolMonitor.send("1",
+          "0", new HttpResponse("Payload"));
+
+    } catch (InvalidSessionException e) {
+      e.printStackTrace();
+      fail("Exception thrown");
+    }
   }
 }

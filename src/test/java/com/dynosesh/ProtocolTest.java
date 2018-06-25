@@ -26,7 +26,7 @@ public class ProtocolTest {
   @Before
   public void setUp() {
     ProtocolFactory protocolFactory = new ProtocolFactory();
-    Node startNode = new Node(TestLayer.class, true);
+    Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
     startNode.addConnection(new Connection("1", mediumNode));
