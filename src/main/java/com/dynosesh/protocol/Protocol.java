@@ -48,16 +48,16 @@ public class Protocol {
    * @return True if the graph traversal was possible
    */
   public boolean checkStatusAndProgress(Sendable payload) {
-    for (Node node : getConnectingNodes()) {
-      if (node.getValue() == payload.getPayload().getClass()) {
-        currentNode = node;
+    for (Connection connection : getConnectingNodes()) {
+      if (connection.getNode().getValue() == payload.getClass()) {
+        currentNode = connection.getNode();
         return true;
       }
     }
     return false;
   }
 
-  private ArrayList<Node> getConnectingNodes() {
+  private ArrayList<Connection> getConnectingNodes() {
     return this.protocol.getConnections(currentNode);
   }
 }

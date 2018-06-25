@@ -25,12 +25,12 @@ public class ProtocolMonitorTest {
   public void setUp() {
     ProtocolFactory protocolFactory = new ProtocolFactory();
     Node startNode = new Node(TestLayer.class, true);
-    Node meiumNode = new Node(TestLayer.class);
+    Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
-    startNode.addConnection(new Connection("1", meiumNode));
-    meiumNode.addConnection(new Connection("1", finishNode));
+    startNode.addConnection(new Connection("1", mediumNode));
+    mediumNode.addConnection(new Connection("1", finishNode));
     protocolFactory.addNode(startNode);
-    protocolFactory.addNode(meiumNode);
+    protocolFactory.addNode(mediumNode);
     protocolFactory.addNode(finishNode);
     Protocol protocol = protocolFactory.build();
     this.protocolMonitor = new ProtocolMonitor(protocol);

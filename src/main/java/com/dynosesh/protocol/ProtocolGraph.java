@@ -40,23 +40,13 @@ public class ProtocolGraph {
   }
 
   /**
-   * Returns an ArrayList of Node objects that are connected to the inputted Node.
-   * <p>
-   * TODO: Rework this, potentially just return the Connection objects instead of excavating
-   * TODO: the Nodes, this means you are doing twice the work when the Node can just be
-   * TODO: accessed through the connection when the object is returned, also the connection object
-   * TODO: API methods are needed to check validity based on which actor is calling
-   * </p>
+   * Returns an ArrayList of Connection objects that are connected to the inputted Node.
    *
    * @param currentNode The node which connections need checked against
-   * @return An ArrayList of all the connected nodes
+   * @return An ArrayList of all the connections
    */
-  ArrayList<Node> getConnections(Node currentNode) {
-    ArrayList<Node> returnable = new ArrayList<>();
-    for (Connection connection : nodes.get(nodes.indexOf(currentNode)).getConnections()) {
-      returnable.add(connection.getNode());
-    }
-    return returnable;
+  ArrayList<Connection> getConnections(Node currentNode) {
+    return currentNode.getConnections();
   }
 
   /**

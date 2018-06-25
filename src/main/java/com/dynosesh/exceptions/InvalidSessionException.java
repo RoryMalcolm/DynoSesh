@@ -13,8 +13,10 @@ public class InvalidSessionException extends Exception {
    * When a session type error occurs, this exception is used to ensure that the system
    * cannot progress further.
    * </p>
+   *
+   * @param message The message to return in the exception
    */
-  public InvalidSessionException() {
-    super();
+  public InvalidSessionException(String message) {
+    super(message);
   }
 }

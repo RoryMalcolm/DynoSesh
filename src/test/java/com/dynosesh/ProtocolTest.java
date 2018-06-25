@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.
@@ -26,13 +25,13 @@ public class ProtocolTest {
   @Before
   public void setUp() {
     ProtocolFactory protocolFactory = new ProtocolFactory();
-    Node startNode = new Node(ProtocolMonitorTest.TestLayer.class, true);
-    Node meiumNode = new Node(ProtocolMonitorTest.TestLayer.class);
-    Node finishNode = new Node(ProtocolMonitorTest.TestLayer.class);
-    startNode.addConnection(new Connection("1", meiumNode));
-    meiumNode.addConnection(new Connection("1", finishNode));
+    Node startNode = new Node(TestLayer.class, true);
+    Node mediumNode = new Node(TestLayer.class);
+    Node finishNode = new Node(TestLayer.class);
+    startNode.addConnection(new Connection("1", mediumNode));
+    mediumNode.addConnection(new Connection("1", finishNode));
     protocolFactory.addNode(startNode);
-    protocolFactory.addNode(meiumNode);
+    protocolFactory.addNode(mediumNode);
     protocolFactory.addNode(finishNode);
     this.protocol = protocolFactory.build();
   }
@@ -42,12 +41,6 @@ public class ProtocolTest {
     TestLayer testLayer = new TestLayer("Hello, world!");
     assertEquals(true, protocol.checkStatusAndProgress(testLayer));
     assertEquals(true, protocol.checkStatusAndProgress(testLayer));
-    boolean thrown = false;
-    try {
-      protocol.checkStatusAndProgress(testLayer);
-    } catch (Exception e) {
-      thrown = true;
-    }
-    assertTrue(thrown);
+    assertEquals(false, protocol.checkStatusAndProgress(testLayer));
   }
 }

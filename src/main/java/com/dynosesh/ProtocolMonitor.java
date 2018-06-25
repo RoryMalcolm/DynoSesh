@@ -62,7 +62,7 @@ public class ProtocolMonitor {
     if (this.protocol.checkStatusAndProgress(payload)) {
       this.actorMap.get(address).addTask(payload);
     } else {
-      throw new InvalidSessionException();
+      throw new InvalidSessionException("Attempted an invalid protocol movement");
     }
   }
 }
