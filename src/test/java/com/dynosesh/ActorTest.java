@@ -24,20 +24,15 @@ public class ActorTest {
 
   @Test
   public void addTask() {
-    boolean thrown = false;
-    try {
-      actor.getTask();
-    } catch (NoSuchElementException e) {
-      thrown = true;
-    }
-    assertTrue(thrown);
-    TestClass testClass = new TestClass("Test test");
-    actor.addTask(testClass);
-    assertEquals(testClass, actor.getTask());
+    testTaskQueue();
   }
 
   @Test
   public void getTask() {
+    testTaskQueue();
+  }
+
+  private void testTaskQueue() {
     boolean thrown = false;
     try {
       actor.getTask();
