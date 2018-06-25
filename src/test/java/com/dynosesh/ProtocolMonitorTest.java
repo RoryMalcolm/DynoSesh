@@ -8,6 +8,9 @@ import com.dynosesh.protocol.ProtocolFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.fail;
+
 /**
  * Created by Rory Malcolm on 19/06/2018.
  */
@@ -40,12 +43,53 @@ public class ProtocolMonitorTest {
   }
 
   @Test
-  public void send() {
+  public void normalExecution() {
     try {
-      this.protocolMonitor.send("1", new TestLayer("Hello world!"));
-      this.protocolMonitor.send("1", new TestLayer("Alright mate!"));
+      this.protocolMonitor.send("1",
+          "0", new TestLayer("Hello world!"));
+      this.protocolMonitor.send("1",
+          "0", new TestLayer("Alright mate!"));
     } catch (InvalidSessionException e) {
       e.printStackTrace();
+      fail("Exception thrown");
     }
+  }
+
+  @Test
+  public void failingExecutionWrongType() {
+    boolean didThrow = false;
+    class WrongType extends Sendable {
+      /**
+       * Used to facilitate communication over a protocol.
+       * <p>
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
+       * implementation.
+       * </p>
+       *
+       * @param payload The payload of the message
+       */
+      private WrongType(Object payload) {
+        super(payload);
+      }
+    }
+    try {
+      this.protocolMonitor.send("0",
+          "1", new WrongType("Should Fail"));
+    } catch (InvalidSessionException e) {
+      didThrow = true;
+    }
+    assertTrue(didThrow);
+  }
+
+  @Test
+  public void failingExecutionWrongAddress() {
+    boolean didThrow = false;
+    try {
+      this.protocolMonitor.send("0",
+          "2", new TestLayer("Hello world!"));
+    } catch (InvalidSessionException e) {
+      didThrow = true;
+    }
+    assertTrue(didThrow);
   }
 }

@@ -54,13 +54,15 @@ public class ProtocolMonitor {
   /**
    * Sends a message, and ensures it complies to the protocol.
    *
-   * @param address The address of the actor to send the message to
+   * @param senderAddress The address of the actor sending the request
+   * @param receiverAddress The address of the actor to send the message to
    * @param payload The message to send to an actor
    * @throws InvalidSessionException Thrown when there is a session type error
    */
-  public void send(String address, Sendable payload) throws InvalidSessionException {
-    if (this.protocol.checkStatusAndProgress(payload)) {
-      this.actorMap.get(address).addTask(payload);
+  public void send(String senderAddress,
+                   String receiverAddress, Sendable payload) throws InvalidSessionException {
+    if (this.protocol.checkStatusAndProgress(senderAddress, payload)) {
+      this.actorMap.get(receiverAddress).addTask(payload);
     } else {
       throw new InvalidSessionException("Attempted an invalid protocol movement");
     }

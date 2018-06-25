@@ -7,7 +7,8 @@ import com.dynosesh.protocol.ProtocolFactory;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.
@@ -39,8 +40,11 @@ public class ProtocolTest {
   @Test
   public void testLayerInstanceOf() {
     TestLayer testLayer = new TestLayer("Hello, world!");
-    assertEquals(true, protocol.checkStatusAndProgress(testLayer));
-    assertEquals(true, protocol.checkStatusAndProgress(testLayer));
-    assertEquals(false, protocol.checkStatusAndProgress(testLayer));
+    assertTrue(protocol.checkStatusAndProgress("1",
+        testLayer));
+    assertTrue(protocol.checkStatusAndProgress("1",
+        testLayer));
+    assertFalse(protocol.checkStatusAndProgress("1",
+        testLayer));
   }
 }
