@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class ProtocolFactoryTest {
 
-  ProtocolFactory protocolFactory;
+  private ProtocolFactory protocolFactory;
 
   @Before
   public void setUp() {
