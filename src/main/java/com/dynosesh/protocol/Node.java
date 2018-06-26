@@ -39,6 +39,11 @@ public class Node {
    * @param connection The connection to add to the node
    */
   public void addConnection(Connection connection) {
+    for (Connection connectionCheck : this.connections) {
+      if (connection.equals(connectionCheck)) {
+        throw new IllegalArgumentException("This connection already exists");
+      }
+    }
     this.connections.add(connection);
   }
 
@@ -67,5 +72,17 @@ public class Node {
    */
   public boolean isStart() {
     return start;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    try {
+      Node parsed = (Node) obj;
+      return parsed.connections.equals(this.connections)
+          && parsed.start == this.start
+          && this.value == parsed.value;
+    } catch (Exception e) {
+      return false;
+    }
   }
 }

@@ -25,6 +25,13 @@ public class NodeTest {
   public void addConnection() {
     startNode.addConnection(new Connection("1", nonStartNode));
     assertEquals(startNode.getConnections().get(0).getNode(), nonStartNode);
+    boolean thrown = false;
+    try {
+      startNode.addConnection(new Connection("1", nonStartNode));
+    } catch (Exception e) {
+      thrown = true;
+    }
+    assertTrue(thrown);
   }
 
   @Test
@@ -43,6 +50,16 @@ public class NodeTest {
   public void isStart() {
     assertTrue(startNode.isStart());
     assertFalse(nonStartNode.isStart());
+  }
+
+  @Test
+  public void equals() {
+    Node testClass = new Node(TestClass.class);
+    Node testClass1 = new Node(TestClass.class);
+    assertEquals(testClass, testClass1);
+    testClass = new Node(null);
+    testClass1 = new Node(null);
+    assertEquals(testClass, testClass1);
   }
 
   class TestClass extends Sendable {

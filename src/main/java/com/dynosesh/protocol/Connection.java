@@ -58,4 +58,10 @@ public class Connection {
   public boolean hasPermission(String sender) {
     return address.equals(sender);
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    Connection parsed = (Connection) obj;
+    return this.address.equals(parsed.address) && this.node.equals(parsed.node);
+  }
 }
