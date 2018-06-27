@@ -1,6 +1,6 @@
 package com.dynosesh;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.
@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
 public class Actor {
-  private LinkedList<Sendable> tasks;
+  private ArrayDeque<Sendable> tasks;
 
   /**
    * Actor constructor
@@ -18,7 +18,7 @@ public class Actor {
    * </p>
    */
   public Actor() {
-    this.tasks = new LinkedList<>();
+    this.tasks = new ArrayDeque<>();
   }
 
   /**
