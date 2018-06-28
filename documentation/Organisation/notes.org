@@ -73,3 +73,10 @@ start communication should be kept track of BY the protocol rather than pre orda
 
 the protocol should keep a reference of which actor in the system is which actor and automatically check this as opposed
 to the user imputing it through the address they are posting towards
+
+Interesting protocol
+Potentially look at IRC
+Methods to improve usability of library
+Internal DSL's for Java, Martin Fowler's book on DSLs' / Embedded DSL
+Address management system of some sort
+Potential interfacisation of Actor class
