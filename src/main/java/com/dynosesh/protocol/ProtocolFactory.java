@@ -12,7 +12,7 @@ public class ProtocolFactory {
   /**
    * Used to build a valid protocol graph.
    * <p>
-   * Ensures that the protocol graph has a starting node somewhere within it, will except
+   * Ensures that the protocol graph has a starting addNode somewhere within it, will except
    * if this is not the case
    * </p>
    */
@@ -21,7 +21,7 @@ public class ProtocolFactory {
   }
 
   /**
-   * Adds a node the protocol.
+   * Adds a node to the protocol.
    *
    * @param node The node for adding
    */
@@ -33,6 +33,17 @@ public class ProtocolFactory {
   }
 
   /**
+   * Starts node construction through the internal DSL.
+   *
+   * @return The nodebuilder object
+   */
+  public NodeBuilder node() {
+    NodeBuilder nodeBuilder = new NodeBuilder(this);
+    this.addNode(nodeBuilder.getNode());
+    return nodeBuilder;
+  }
+
+  /**
    * Returns the completed protocol object if it is valid, throws an IllegalStateException if not
    *
    * @return The protocol object
@@ -41,7 +52,7 @@ public class ProtocolFactory {
     if (hasStart) {
       return protocol;
     } else {
-      throw new IllegalStateException("The protocol does not have a starting node");
+      throw new IllegalStateException("The protocol does not have a starting addNode");
     }
   }
 }

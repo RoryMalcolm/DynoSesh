@@ -23,13 +23,36 @@ public class Connection {
    * </p>
    *
    * @param address The address of the valid traversing actor
-   * @param node    The node the connection is pointing to
+   * @param node    The addNode the connection is pointing to
    */
   public Connection(String address, Node node) {
     this.address = address;
     this.node = node;
   }
 
+  /**
+   * Used to create a blank connection in the internal DSL.
+   */
+  public Connection() {
+  }
+
+  /**
+   * Sets the address of a blank connection - mostly used in the DSL.
+   *
+   * @param address The address in the connection
+   */
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  /**
+   * Sets the node of a blank connection - mostly used in the DSL.
+   *
+   * @param node The node for the connection
+   */
+  public void setNode(Node node) {
+    this.node = node;
+  }
 
   /**
    * Returns the node the connection points towards.
@@ -59,9 +82,19 @@ public class Connection {
     return address.equals(sender);
   }
 
+  /**
+   * Used to assess equality between connections.
+   *
+   * @param obj The object that is checked against
+   * @return True if the objects are equal
+   */
   @Override
   public boolean equals(Object obj) {
-    Connection parsed = (Connection) obj;
-    return this.address.equals(parsed.address) && this.node.equals(parsed.node);
+    try {
+      Connection parsed = (Connection) obj;
+      return this.address.equals(parsed.address) && this.node.equals(parsed.node);
+    } catch (Exception e) {
+      return false;
+    }
   }
 }

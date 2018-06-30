@@ -21,11 +21,11 @@ public class Node {
    * the graph
    * </p>
    * <p>
-   * If a null value is input the node will be treated as a "start node", there can only be one
+   * If a null value is input the addNode will be treated as a "start addNode", there can only be one
    * of these per graph
    * </p>
    *
-   * @param value The class value of the node within the graph, if null is a "start node"
+   * @param value The class value of the addNode within the graph, if null is a "start addNode"
    */
   public Node(Class<? extends Sendable> value) {
     this.value = value;
@@ -36,7 +36,7 @@ public class Node {
   /**
    * Adds a connection the the Node.
    *
-   * @param connection The connection to add to the node
+   * @param connection The connection to add to the addNode
    */
   public void addConnection(Connection connection) {
     for (Connection connectionCheck : this.connections) {
@@ -48,7 +48,7 @@ public class Node {
   }
 
   /**
-   * Returns a node's connections as an ArrayList.
+   * Returns a addNode's connections as an ArrayList.
    *
    * @return The ArrayList of connections
    */
@@ -57,23 +57,38 @@ public class Node {
   }
 
   /**
-   * Returns the value within the node.
+   * Returns the value within the addNode.
    *
-   * @return The value within the node
+   * @return The value within the addNode
    */
   public Class<? extends Sendable> getValue() {
     return value;
   }
 
   /**
-   * Returns true if the node is a start node.
+   * Returns true if the addNode is a start addNode.
    *
-   * @return True if the node is a start node
+   * @return True if the addNode is a start addNode
    */
   public boolean isStart() {
     return start;
   }
 
+  /**
+   * Adds a value to the node - mostly used in the internal DSL construction phase.
+   *
+   * @param value The value of the node
+   */
+  public void addValue(Class<? extends Sendable> value) {
+    this.value = value;
+  }
+
+  /**
+   * Checks for equality between two nodes.
+   *
+   * @param obj The candidate node
+   * @return True if equal
+   */
   @Override
   public boolean equals(Object obj) {
     try {
