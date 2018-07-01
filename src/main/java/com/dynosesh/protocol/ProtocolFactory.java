@@ -52,7 +52,7 @@ public class ProtocolFactory {
     if (hasStart) {
       return protocol;
     } else {
-      throw new IllegalStateException("The protocol does not have a starting addNode");
+      throw new IllegalArgumentException("The protocol does not have a starting addNode");
     }
   }
 }
