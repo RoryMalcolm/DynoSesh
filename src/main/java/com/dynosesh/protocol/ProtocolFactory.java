@@ -6,14 +6,15 @@ package com.dynosesh.protocol;
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
 public class ProtocolFactory {
+
   private Protocol protocol;
   private boolean hasStart = false;
 
   /**
    * Used to build a valid protocol graph.
    * <p>
-   * Ensures that the protocol graph has a starting addNode somewhere within it, will except
-   * if this is not the case
+   * Ensures that the protocol graph has a starting addNode somewhere within it, will except if this
+   * is not the case
    * </p>
    */
   public ProtocolFactory() {
@@ -30,6 +31,16 @@ public class ProtocolFactory {
       hasStart = true;
     }
     protocol.addNode(node);
+  }
+
+  /**
+   * Gets the node at the entered key
+   *
+   * @param key The key for the node
+   * @return The node
+   */
+  Node getNode(String key) {
+    return this.protocol.getNode(key);
   }
 
   /**

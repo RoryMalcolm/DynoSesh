@@ -40,6 +40,9 @@ public class NodeBuilder {
    * @return The instance of nodebuilder for further operations
    */
   public NodeBuilder payload(Class<? extends Sendable> payload) {
+    if (payloadAdded) {
+      throw new IllegalStateException("Cannot have two payloads!");
+    }
     payloadAdded = true;
     node.addValue(payload);
     return this;
@@ -54,7 +57,7 @@ public class NodeBuilder {
     if (!payloadAdded) {
       throw new IllegalArgumentException("No payload on node");
     }
-    ConnectionBuilder connectionBuilder = new ConnectionBuilder(this);
+    ConnectionBuilder connectionBuilder = new ConnectionBuilder(parentProtocolFactory, this);
     this.node.addConnection(connectionBuilder.getConnection());
     return connectionBuilder;
   }

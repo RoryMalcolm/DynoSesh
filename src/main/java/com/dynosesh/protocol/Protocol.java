@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
 public class Protocol {
+
   private ProtocolGraph protocol;
   private Node currentNode;
 
@@ -28,13 +29,21 @@ public class Protocol {
    *
    * @param forAdding The layer for adding.
    */
-  public void addNode(Node forAdding) {
+  void addNode(Node forAdding) {
     if (forAdding.isStart() && currentNode == null) {
       currentNode = forAdding;
-    } else if (forAdding.isStart() && currentNode != null) {
-      throw new IllegalArgumentException("There cannot be two start nodes in a graph");
     }
     this.protocol.addNode(forAdding);
+  }
+
+  /**
+   * Gets a node within the protocol at the key inputted
+   *
+   * @param key The key
+   * @return The node at that key
+   */
+  Node getNode(String key) {
+    return this.protocol.getNode(key);
   }
 
   /**

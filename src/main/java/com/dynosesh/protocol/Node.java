@@ -1,7 +1,6 @@
 package com.dynosesh.protocol;
 
 import com.dynosesh.Sendable;
-
 import java.util.ArrayList;
 
 /**
@@ -52,7 +51,7 @@ public class Node {
    *
    * @return The ArrayList of connections
    */
-  public ArrayList<Connection> getConnections() {
+  ArrayList<Connection> getConnections() {
     return connections;
   }
 
@@ -61,7 +60,7 @@ public class Node {
    *
    * @return The value within the addNode
    */
-  public Class<? extends Sendable> getValue() {
+  Class<? extends Sendable> getValue() {
     return value;
   }
 
@@ -70,7 +69,7 @@ public class Node {
    *
    * @return True if the addNode is a start addNode
    */
-  public boolean isStart() {
+  boolean isStart() {
     return start;
   }
 
@@ -79,7 +78,7 @@ public class Node {
    *
    * @param value The value of the node
    */
-  public void addValue(Class<? extends Sendable> value) {
+  void addValue(Class<? extends Sendable> value) {
     this.value = value;
   }
 
