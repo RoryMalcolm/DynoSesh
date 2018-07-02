@@ -1,15 +1,12 @@
 package com.dynosesh.protocol;
 
 import com.dynosesh.Sendable;
-
 import java.util.ArrayList;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
- * TODO: Work out how to express more complicated protocols - potentially a graph representation of
- * TODO: finite state machine?
  */
 public class Protocol {
   private ProtocolGraph protocol;

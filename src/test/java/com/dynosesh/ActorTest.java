@@ -1,34 +1,33 @@
 package com.dynosesh;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.NoSuchElementException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Rory Malcolm on 25/06/2018.
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-public class ActorTest {
+class ActorTest {
 
   private Actor actor;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     actor = new Actor();
   }
 
   @Test
-  public void addTask() {
+  void addTask() {
     testTaskQueue();
   }
 
   @Test
-  public void getTask() {
+  void getTask() {
     testTaskQueue();
   }
 

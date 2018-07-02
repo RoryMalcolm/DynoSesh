@@ -1,19 +1,21 @@
 package com.dynosesh;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static junit.framework.TestCase.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Rory Malcolm on 25/06/2018.
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-public class SendableTest {
+class SendableTest {
+
+  private TestClass testClass;
 
   @Test
-  public void getPayload() {
-    TestClass testClass = new TestClass("Hello, tester!");
+  void getPayload() {
+    testClass = new TestClass("Hello, tester!");
     assertEquals(String.class, testClass.getPayload().getClass());
     assertEquals("Hello, tester!", testClass.getPayload());
   }

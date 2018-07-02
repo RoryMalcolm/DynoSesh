@@ -1,28 +1,31 @@
 package com.dynosesh.protocol;
 
-import com.dynosesh.Sendable;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.Assert.*;
+import com.dynosesh.Sendable;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Rory Malcolm on 25/06/2018.
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-public class NodeTest {
+class NodeTest {
+
   private Node startNode;
   private Node nonStartNode;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     startNode = new Node(null);
     nonStartNode = new Node(TestClass.class);
   }
 
   @Test
-  public void addConnection() {
+  void addConnection() {
     startNode.addConnection(new Connection("1", nonStartNode));
     assertEquals(startNode.getConnections().get(0).getNode(), nonStartNode);
     boolean thrown = false;
@@ -35,25 +38,25 @@ public class NodeTest {
   }
 
   @Test
-  public void getConnections() {
+  void getConnections() {
     assertEquals(0, startNode.getConnections().size());
     startNode.addConnection(new Connection("1", nonStartNode));
     assertEquals(1, startNode.getConnections().size());
   }
 
   @Test
-  public void getValue() {
+  void getValue() {
     assertEquals(TestClass.class, nonStartNode.getValue());
   }
 
   @Test
-  public void isStart() {
+  void isStart() {
     assertTrue(startNode.isStart());
     assertFalse(nonStartNode.isStart());
   }
 
   @Test
-  public void equals() {
+  void equals() {
     Node testClass = new Node(TestClass.class);
     Node testClass1 = new Node(TestClass.class);
     assertEquals(testClass, testClass1);

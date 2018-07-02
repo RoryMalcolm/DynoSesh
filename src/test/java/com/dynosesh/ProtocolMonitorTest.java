@@ -1,25 +1,25 @@
 package com.dynosesh;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.dynosesh.exceptions.InvalidSessionException;
 import com.dynosesh.protocol.Connection;
 import com.dynosesh.protocol.Node;
 import com.dynosesh.protocol.Protocol;
 import com.dynosesh.protocol.ProtocolFactory;
-import org.junit.Before;
-import org.junit.Test;
-
-import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.
  */
-public class ProtocolMonitorTest {
+class ProtocolMonitorTest {
 
   private ProtocolMonitor protocolMonitor;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     ProtocolFactory protocolFactory = new ProtocolFactory();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
@@ -30,18 +30,18 @@ public class ProtocolMonitorTest {
     protocolFactory.addNode(mediumNode);
     protocolFactory.addNode(finishNode);
     Protocol protocol = protocolFactory.build();
-    this.protocolMonitor = new ProtocolMonitor(protocol);
+    protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      this.protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(String.valueOf(i), new Actor());
     }
   }
 
   @Test
-  public void normalExecution() {
+  void normalExecution() {
     try {
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new TestLayer("Hello world!"));
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new TestLayer("Alright mate!"));
     } catch (InvalidSessionException e) {
       e.printStackTrace();
@@ -50,9 +50,10 @@ public class ProtocolMonitorTest {
   }
 
   @Test
-  public void failingExecutionWrongType() {
+  void failingExecutionWrongType() {
     boolean didThrow = false;
     class WrongType extends Sendable {
+
       /**
        * Used to facilitate communication over a protocol.
        * <p>
@@ -67,7 +68,7 @@ public class ProtocolMonitorTest {
       }
     }
     try {
-      this.protocolMonitor.send("0",
+      protocolMonitor.send("0",
           "1", new WrongType("Should Fail"));
     } catch (InvalidSessionException e) {
       didThrow = true;
@@ -76,10 +77,10 @@ public class ProtocolMonitorTest {
   }
 
   @Test
-  public void failingExecutionWrongAddress() {
+  void failingExecutionWrongAddress() {
     boolean didThrow = false;
     try {
-      this.protocolMonitor.send("0",
+      protocolMonitor.send("0",
           "2", new TestLayer("Hello world!"));
     } catch (InvalidSessionException e) {
       didThrow = true;
@@ -88,7 +89,7 @@ public class ProtocolMonitorTest {
   }
 
   @Test
-  public void httpDemonstration() {
+  void httpDemonstration() {
     class HttpRequest extends Sendable {
 
       /**
@@ -129,14 +130,14 @@ public class ProtocolMonitorTest {
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     protocolFactory.addNode(finishNode);
-    this.protocolMonitor = new ProtocolMonitor(protocolFactory.build());
+    protocolMonitor = new ProtocolMonitor(protocolFactory.build());
     for (int i = 0; i < 10; i++) {
-      this.protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(String.valueOf(i), new Actor());
     }
     try {
-      this.protocolMonitor.send("0",
+      protocolMonitor.send("0",
           "1", new HttpRequest("GET"));
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new HttpResponse("Payload"));
 
     } catch (InvalidSessionException e) {
@@ -146,7 +147,7 @@ public class ProtocolMonitorTest {
   }
 
   @Test
-  public void recursiveGraphTest() {
+  void recursiveGraphTest() {
     ProtocolFactory protocolFactory = new ProtocolFactory();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
@@ -155,28 +156,28 @@ public class ProtocolMonitorTest {
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     Protocol protocol = protocolFactory.build();
-    this.protocolMonitor = new ProtocolMonitor(protocol);
+    protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      this.protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(String.valueOf(i), new Actor());
     }
     try {
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new TestLayer("Hello world!"));
     } catch (InvalidSessionException e) {
-      fail();
+      fail("Errored on choice");
     }
     for (int i = 0; i < 1000; i++) {
       try {
-        this.protocolMonitor.send("1",
+        protocolMonitor.send("1",
             "0", new TestLayer("Hello world!"));
       } catch (InvalidSessionException e) {
-        fail();
+        fail("Errored on choice");
       }
     }
   }
 
   @Test
-  public void multiDirectionalGraphTest() {
+  void multiDirectionalGraphTest() {
     class ChoiceOne extends Sendable {
 
       /**
@@ -188,7 +189,7 @@ public class ProtocolMonitorTest {
        *
        * @param payload The payload of the message
        */
-      public ChoiceOne(Object payload) {
+      private ChoiceOne(Object payload) {
         super(payload);
       }
     }
@@ -204,7 +205,7 @@ public class ProtocolMonitorTest {
        *
        * @param payload The payload of the message
        */
-      public ChoiceTwo(Object payload) {
+      private ChoiceTwo(Object payload) {
         super(payload);
       }
     }
@@ -219,17 +220,17 @@ public class ProtocolMonitorTest {
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     Protocol protocol = protocolFactory.build();
-    this.protocolMonitor = new ProtocolMonitor(protocol);
+    protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      this.protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(String.valueOf(i), new Actor());
     }
     try {
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new TestLayer("Hello world!"));
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new ChoiceOne("ChoiceOne"));
     } catch (InvalidSessionException e) {
-      fail();
+      fail("Errored on choice");
     }
     protocolFactory = new ProtocolFactory();
     startNode = new Node(null);
@@ -242,21 +243,22 @@ public class ProtocolMonitorTest {
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     protocol = protocolFactory.build();
-    this.protocolMonitor = new ProtocolMonitor(protocol);
+    protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      this.protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(String.valueOf(i), new Actor());
     }
     try {
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new TestLayer("Hello world!"));
-      this.protocolMonitor.send("1",
+      protocolMonitor.send("1",
           "0", new ChoiceTwo("ChoiceTwo"));
     } catch (InvalidSessionException e) {
-      fail();
+      fail("Errored on choice");
     }
   }
 
   class TestLayer extends Sendable {
+
     TestLayer(String payload) {
       super(payload);
     }

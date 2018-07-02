@@ -1,35 +1,35 @@
 package com.dynosesh.protocol;
 
-import com.dynosesh.Sendable;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import com.dynosesh.Sendable;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Rory Malcolm on 26/06/2018.
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-public class ProtocolFactoryTest {
+class ProtocolFactoryTest {
 
   private ProtocolFactory protocolFactory;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     protocolFactory = new ProtocolFactory();
   }
 
   @Test
-  public void addNode() {
+  void addNode() {
     protocolFactory.addNode(new Node(null));
     protocolFactory.addNode(new Node(TestClass.class));
     assertNotNull(protocolFactory.build());
   }
 
   @Test
-  public void build() {
+  void build() {
     boolean thrown = false;
     try {
       protocolFactory.addNode(new Node(TestClass.class));
