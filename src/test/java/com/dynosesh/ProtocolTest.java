@@ -1,30 +1,22 @@
 package com.dynosesh;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.dynosesh.protocol.Connection;
 import com.dynosesh.protocol.Node;
 import com.dynosesh.protocol.Protocol;
 import com.dynosesh.protocol.ProtocolFactory;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Rory Malcolm on 19/06/2018.
  */
-public class ProtocolTest {
+class ProtocolTest {
 
-  class TestLayer extends Sendable {
-    TestLayer(String payload) {
-      super(payload);
-    }
-  }
-
-  private Protocol protocol;
-
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     ProtocolFactory protocolFactory = new ProtocolFactory();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
@@ -34,11 +26,13 @@ public class ProtocolTest {
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     protocolFactory.addNode(finishNode);
-    this.protocol = protocolFactory.build();
+    protocol = protocolFactory.build();
   }
 
+  private Protocol protocol;
+
   @Test
-  public void testLayerInstanceOf() {
+  void testLayerInstanceOf() {
     TestLayer testLayer = new TestLayer("Hello, world!");
     assertTrue(protocol.checkStatusAndProgress("1",
         testLayer));
@@ -46,5 +40,12 @@ public class ProtocolTest {
         testLayer));
     assertFalse(protocol.checkStatusAndProgress("1",
         testLayer));
+  }
+
+  class TestLayer extends Sendable {
+
+    TestLayer(String payload) {
+      super(payload);
+    }
   }
 }

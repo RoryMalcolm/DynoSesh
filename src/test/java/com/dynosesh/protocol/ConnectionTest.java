@@ -1,30 +1,31 @@
 package com.dynosesh.protocol;
 
-import com.dynosesh.Sendable;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertTrue;
+import com.dynosesh.Sendable;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Rory Malcolm on 26/06/2018.
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-public class ConnectionTest {
+class ConnectionTest {
+
   private Connection connection1;
   private Connection connection;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     Node testNode = new Node(TestClass.class);
     connection = new Connection("1", testNode);
     connection1 = new Connection("1", testNode);
   }
 
   @Test
-  public void equals() {
-    assertTrue(connection.equals(connection1));
+  void equals() {
+    assertEquals(connection, connection1);
   }
 
   class TestClass extends Sendable {
