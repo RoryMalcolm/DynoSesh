@@ -8,6 +8,7 @@ import com.dynosesh.Sendable;
  * @author rorymalcolm
  */
 public class NodeBuilder {
+
   private Node node;
   private ProtocolFactory parentProtocolFactory;
   private boolean payloadAdded;
@@ -71,5 +72,14 @@ public class NodeBuilder {
     NodeBuilder nodeBuilder = new NodeBuilder(this.parentProtocolFactory);
     this.parentProtocolFactory.addNode(nodeBuilder.getNode());
     return nodeBuilder;
+  }
+
+  /**
+   * Returns the completed protocol object if it is valid, throws an IllegalStateException if not
+   *
+   * @return The protocol object
+   */
+  public Protocol build() {
+    return this.parentProtocolFactory.build();
   }
 }

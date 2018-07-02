@@ -42,14 +42,15 @@ class ProtocolFactoryTest {
 
   @Test
   void node() {
-    protocolFactory
+    assertNotNull(protocolFactory
         .node()
         .payload(null)
         .node()
         .payload(TestClass.class)
         .connection()
         .actor("0")
-        .to("1");
+        .to("1")
+        .build());
   }
 
   class TestClass extends Sendable {
