@@ -40,6 +40,18 @@ class ProtocolFactoryTest {
     assertTrue(thrown);
   }
 
+  @Test
+  void node() {
+    protocolFactory
+        .node()
+        .payload(null)
+        .node()
+        .payload(TestClass.class)
+        .connection()
+        .actor("0")
+        .to("1");
+  }
+
   class TestClass extends Sendable {
 
     /**

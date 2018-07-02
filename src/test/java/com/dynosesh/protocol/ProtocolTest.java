@@ -1,12 +1,9 @@
-package com.dynosesh;
+package com.dynosesh.protocol;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.dynosesh.protocol.Connection;
-import com.dynosesh.protocol.Node;
-import com.dynosesh.protocol.Protocol;
-import com.dynosesh.protocol.ProtocolFactory;
+import com.dynosesh.Sendable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
