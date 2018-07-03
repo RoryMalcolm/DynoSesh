@@ -2,7 +2,6 @@ package com.dynosesh;
 
 import com.dynosesh.exceptions.InvalidSessionException;
 import com.dynosesh.protocol.Protocol;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ public class ProtocolMonitor {
 
   private Map<String, Actor> actorMap;
   private Protocol protocol;
+  private int actorCount;
 
   /**
    * Used to ensure that communication complies to the protocol implementation.
@@ -27,6 +27,7 @@ public class ProtocolMonitor {
    * @param protocol The protocol that will be checked against
    */
   public ProtocolMonitor(Protocol protocol) {
+    this.actorCount = 0;
     this.protocol = protocol;
     this.actorMap = new HashMap<>();
   }
@@ -34,11 +35,11 @@ public class ProtocolMonitor {
   /**
    * Adds and actor to the protocol's dictionary.
    *
-   * @param key   The address of the new actor
    * @param actor The actor reference
    */
-  public void addActor(String key, Actor actor) {
-    this.actorMap.put(key, actor);
+  public void addActor(Actor actor) {
+    this.actorMap.put(String.valueOf(actorCount), actor);
+    actorCount++;
   }
 
   /**
@@ -61,8 +62,15 @@ public class ProtocolMonitor {
    */
   public void send(String senderAddress,
                    String receiverAddress, Sendable payload) throws InvalidSessionException {
+    if (this.actorMap.size() == 0) {
+      throw new IllegalArgumentException("The protocol does not currently contain actors");
+    }
     if (this.protocol.checkStatusAndProgress(senderAddress, payload)) {
-      this.actorMap.get(receiverAddress).addTask(payload);
+      try {
+        this.actorMap.get(receiverAddress).addTask(payload);
+      } catch (NullPointerException e) {
+        throw new IllegalArgumentException("The key did not exist");
+      }
     } else {
       throw new InvalidSessionException("Attempted an invalid protocol movement");
     }

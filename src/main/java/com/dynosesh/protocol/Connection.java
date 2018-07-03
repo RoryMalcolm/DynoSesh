@@ -42,8 +42,8 @@ public class Connection {
    *
    * @param nodeAddress The nodeAddress for the connection
    */
-  public void setNodeAddress(Node nodeAddress) {
-    this.nodeAddress = ProtocolGraph.getNodeAddress(nodeAddress);
+  public void setNodeAddress(String nodeAddress) {
+    this.nodeAddress = nodeAddress;
   }
 
   /**

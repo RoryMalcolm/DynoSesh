@@ -32,7 +32,7 @@ class ProtocolMonitorTest {
     Protocol protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(new Actor());
     }
   }
 
@@ -132,7 +132,7 @@ class ProtocolMonitorTest {
     protocolFactory.addNode(finishNode);
     protocolMonitor = new ProtocolMonitor(protocolFactory.build());
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(new Actor());
     }
     try {
       protocolMonitor.send("0",
@@ -158,7 +158,7 @@ class ProtocolMonitorTest {
     Protocol protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(new Actor());
     }
     try {
       protocolMonitor.send("1",
@@ -224,7 +224,7 @@ class ProtocolMonitorTest {
     Protocol protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(new Actor());
     }
     try {
       protocolMonitor.send("1",
@@ -249,7 +249,7 @@ class ProtocolMonitorTest {
     protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(String.valueOf(i), new Actor());
+      protocolMonitor.addActor(new Actor());
     }
     try {
       protocolMonitor.send("1",

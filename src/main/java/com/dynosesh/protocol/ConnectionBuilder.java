@@ -55,7 +55,7 @@ public class ConnectionBuilder {
    * @return The parent nodebuilder
    */
   public NodeBuilder to(String nodeKey) {
-    this.connection.setNodeAddress(protocolFactory.getNode(nodeKey));
+    this.connection.setNodeAddress(nodeKey);
     if (Objects.equals(this.connection.getActorAddress(), "")) {
       throw new IllegalArgumentException("No actor address defined");
     }
