@@ -47,6 +47,15 @@ public class Protocol {
   }
 
   /**
+   * Return the nodes within the graph
+   *
+   * @return The nodes within the graph
+   */
+  ArrayList<Node> getNodes() {
+    return this.protocol.getNodes();
+  }
+
+  /**
    * Checks to see if it there is a valid state that can be moved to, and does so if possible.
    *
    * @param payload The desired next state
@@ -63,6 +72,11 @@ public class Protocol {
     return false;
   }
 
+  /**
+   * Gets the nodes that connect to the current node
+   *
+   * @return The nodes that connect to the current node
+   */
   private ArrayList<Connection> getConnectingNodes() {
     return this.protocol.getConnections(currentNode);
   }

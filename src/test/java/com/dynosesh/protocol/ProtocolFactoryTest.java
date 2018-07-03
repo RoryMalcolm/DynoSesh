@@ -1,6 +1,7 @@
 package com.dynosesh.protocol;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.dynosesh.Sendable;
@@ -38,6 +39,13 @@ class ProtocolFactoryTest {
       thrown = true;
     }
     assertTrue(thrown);
+  }
+
+  @Test
+  void twoStartNodesBuild() {
+    protocolFactory.addNode(new Node(null));
+    protocolFactory.addNode(new Node(null));
+    assertThrows(IllegalStateException.class, () -> protocolFactory.build());
   }
 
   @Test

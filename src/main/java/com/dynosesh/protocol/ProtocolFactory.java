@@ -1,5 +1,7 @@
 package com.dynosesh.protocol;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * Created by Rory Malcolm on 22/06/2018.
  *
@@ -60,6 +62,14 @@ public class ProtocolFactory {
    * @return The protocol object
    */
   public Protocol build() {
+    //ensure there are not two start nodes within the graph
+    if (this.protocol.getNodes()
+        .parallelStream()
+        .filter(t -> t.getValue() == null)
+        .collect(toList())
+        .size() > 1) {
+      throw new IllegalStateException("Two start nodes within graph");
+    }
     if (hasStart) {
       return protocol;
     } else {

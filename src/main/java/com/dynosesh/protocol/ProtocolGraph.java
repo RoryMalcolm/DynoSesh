@@ -41,6 +41,15 @@ public class ProtocolGraph {
   }
 
   /**
+   * Return the nodes within the graph
+   *
+   * @return The nodes within the graph
+   */
+  ArrayList<Node> getNodes() {
+    return nodes;
+  }
+
+  /**
    * Returns an ArrayList of Connection objects that are connected to the inputted Node.
    *
    * @param currentNode The node which connections need checked against
