@@ -1,7 +1,6 @@
 package com.dynosesh.protocol;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Rory Malcolm on 21/06/2018.
@@ -10,15 +9,14 @@ import java.util.HashMap;
  */
 public class ProtocolGraph {
 
-  private HashMap<String, Node> nodes;
+  private ArrayList<Node> nodes;
   private Node startNode;
-  private int id = 0;
 
   /**
    * The data structure used to contain the inner graph object.
    */
   ProtocolGraph() {
-    this.nodes = new HashMap<>();
+    this.nodes = new ArrayList<>();
   }
 
   /**
@@ -30,8 +28,7 @@ public class ProtocolGraph {
     if (node.isStart()) {
       startNode = node;
     }
-    this.nodes.put(String.valueOf(id), node);
-    id++;
+    this.nodes.add(node);
   }
 
   /**
@@ -40,7 +37,7 @@ public class ProtocolGraph {
    * @return The node within the graph
    */
   Node getNode(String key) {
-    return this.nodes.get(key);
+    return this.nodes.get(Integer.parseInt(key));
   }
 
   /**
