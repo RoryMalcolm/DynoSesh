@@ -19,8 +19,8 @@ class ConnectionTest {
   @BeforeEach
   void setUp() {
     Node testNode = new Node(TestClass.class);
-    connection = new Connection("1", testNode);
-    connection1 = new Connection("1", testNode);
+    connection = new Connection("1", "0");
+    connection1 = new Connection("1", "0");
   }
 
   @Test

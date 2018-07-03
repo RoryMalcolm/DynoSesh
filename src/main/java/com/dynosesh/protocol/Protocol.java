@@ -43,7 +43,7 @@ public class Protocol {
    * @return The node at that key
    */
   Node getNode(String key) {
-    return this.protocol.getNode(key);
+    return ProtocolGraph.getNode(key);
   }
 
   /**

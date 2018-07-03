@@ -43,7 +43,7 @@ public class ConnectionBuilder {
    * @return The current object for chaining methods
    */
   public ConnectionBuilder actor(String actorAddress) {
-    this.connection.setAddress(actorAddress);
+    this.connection.setActorAddress(actorAddress);
     return this;
   }
 
@@ -55,8 +55,8 @@ public class ConnectionBuilder {
    * @return The parent nodebuilder
    */
   public NodeBuilder to(String nodeKey) {
-    this.connection.setNode(protocolFactory.getNode(nodeKey));
-    if (Objects.equals(this.connection.getAddress(), "")) {
+    this.connection.setNodeAddress(protocolFactory.getNode(nodeKey));
+    if (Objects.equals(this.connection.getActorAddress(), "")) {
       throw new IllegalArgumentException("No actor address defined");
     }
     return this.nodeBuilder;

@@ -6,8 +6,9 @@ package com.dynosesh.protocol;
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
 public class Connection {
-  private Node node;
-  private String address;
+
+  private String nodeAddress;
+  private String actorAddress;
 
   /**
    * Used to represent connections between nodes and restrict access to those that validly can move
@@ -17,17 +18,17 @@ public class Connection {
    * A -> B
    * However with a protocol this connection is only allowed to be traversed by valid actors
    * this class helps to restrict this
-   * An example of a Connection object that only allows for the actor with the address "1"
+   * An example of a Connection object that only allows for the actor with the actorAddress "1"
    * to proceed is as follows:
    * A - (1) -> B
    * </p>
    *
-   * @param address The address of the valid traversing actor
-   * @param node    The addNode the connection is pointing to
+   * @param actorAddress The actorAddress of the valid traversing actor
+   * @param nodeAddress    The addNode the connection is pointing to
    */
-  public Connection(String address, Node node) {
-    this.address = address;
-    this.node = node;
+  public Connection(String actorAddress, String nodeAddress) {
+    this.actorAddress = actorAddress;
+    this.nodeAddress = nodeAddress;
   }
 
   /**
@@ -37,49 +38,49 @@ public class Connection {
   }
 
   /**
-   * Sets the address of a blank connection - mostly used in the DSL.
+   * Sets the nodeAddress of a blank connection - mostly used in the DSL.
    *
-   * @param address The address in the connection
+   * @param nodeAddress The nodeAddress for the connection
    */
-  public void setAddress(String address) {
-    this.address = address;
+  public void setNodeAddress(Node nodeAddress) {
+    this.nodeAddress = ProtocolGraph.getNodeAddress(nodeAddress);
   }
 
   /**
-   * Sets the node of a blank connection - mostly used in the DSL.
+   * Returns the nodeAddress the connection points towards.
    *
-   * @param node The node for the connection
-   */
-  public void setNode(Node node) {
-    this.node = node;
-  }
-
-  /**
-   * Returns the node the connection points towards.
-   *
-   * @return The node at the end of the connection
+   * @return The nodeAddress at the end of the connection
    */
   public Node getNode() {
-    return node;
+    return ProtocolGraph.getNode(nodeAddress);
   }
 
   /**
-   * Gets the address of the actor that can validly traverse the connection.
+   * Gets the actorAddress of the actor that can validly traverse the connection.
    *
-   * @return The address of the actor
+   * @return The actorAddress of the actor
    */
-  public String getAddress() {
-    return address;
+  public String getActorAddress() {
+    return actorAddress;
+  }
+
+  /**
+   * Sets the actorAddress of a blank connection - mostly used in the DSL.
+   *
+   * @param actorAddress The actorAddress in the connection
+   */
+  public void setActorAddress(String actorAddress) {
+    this.actorAddress = actorAddress;
   }
 
   /**
    * Returns true if the sender can make the connection.
    *
-   * @param sender The sender's address
+   * @param sender The sender's actorAddress
    * @return True if the sender can make the connection
    */
   public boolean hasPermission(String sender) {
-    return address.equals(sender);
+    return actorAddress.equals(sender);
   }
 
   /**
@@ -92,7 +93,8 @@ public class Connection {
   public boolean equals(Object obj) {
     try {
       Connection parsed = (Connection) obj;
-      return this.address.equals(parsed.address) && this.node.equals(parsed.node);
+      return this.actorAddress.equals(parsed.actorAddress) && this.nodeAddress
+          .equals(parsed.nodeAddress);
     } catch (Exception e) {
       return false;
     }

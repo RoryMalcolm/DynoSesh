@@ -22,15 +22,19 @@ class NodeTest {
   void setUp() {
     startNode = new Node(null);
     nonStartNode = new Node(TestClass.class);
+    ProtocolFactory protocolFactory = new ProtocolFactory();
+    protocolFactory.addNode(startNode);
+    protocolFactory.addNode(nonStartNode);
+    protocolFactory.build();
   }
 
   @Test
   void addConnection() {
-    startNode.addConnection(new Connection("1", nonStartNode));
+    startNode.addConnection(new Connection("1", "1"));
     assertEquals(startNode.getConnections().get(0).getNode(), nonStartNode);
     boolean thrown = false;
     try {
-      startNode.addConnection(new Connection("1", nonStartNode));
+      startNode.addConnection(new Connection("1", "1"));
     } catch (Exception e) {
       thrown = true;
     }
@@ -40,7 +44,7 @@ class NodeTest {
   @Test
   void getConnections() {
     assertEquals(0, startNode.getConnections().size());
-    startNode.addConnection(new Connection("1", nonStartNode));
+    startNode.addConnection(new Connection("1", "1"));
     assertEquals(1, startNode.getConnections().size());
   }
 

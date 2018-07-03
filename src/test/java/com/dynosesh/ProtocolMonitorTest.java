@@ -24,8 +24,8 @@ class ProtocolMonitorTest {
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
-    startNode.addConnection(new Connection("1", mediumNode));
-    mediumNode.addConnection(new Connection("1", finishNode));
+    startNode.addConnection(new Connection("1", "1"));
+    mediumNode.addConnection(new Connection("1", "2"));
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     protocolFactory.addNode(finishNode);
@@ -125,8 +125,8 @@ class ProtocolMonitorTest {
     Node startNode = new Node(null);
     Node mediumNode = new Node(HttpRequest.class);
     Node finishNode = new Node(HttpResponse.class);
-    startNode.addConnection(new Connection("0", mediumNode));
-    mediumNode.addConnection(new Connection("1", finishNode));
+    startNode.addConnection(new Connection("0", "1"));
+    mediumNode.addConnection(new Connection("1", "2"));
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     protocolFactory.addNode(finishNode);
@@ -151,8 +151,8 @@ class ProtocolMonitorTest {
     ProtocolFactory protocolFactory = new ProtocolFactory();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
-    startNode.addConnection(new Connection("1", mediumNode));
-    mediumNode.addConnection(new Connection("1", mediumNode));
+    startNode.addConnection(new Connection("1", "1"));
+    mediumNode.addConnection(new Connection("1", "1"));
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
     Protocol protocol = protocolFactory.build();
@@ -214,11 +214,13 @@ class ProtocolMonitorTest {
     Node mediumNode = new Node(TestLayer.class);
     Node finalChoiceOne = new Node(ChoiceOne.class);
     Node finalChoiceTwo = new Node(ChoiceTwo.class);
-    startNode.addConnection(new Connection("1", mediumNode));
-    mediumNode.addConnection(new Connection("1", finalChoiceOne));
-    mediumNode.addConnection(new Connection("1", finalChoiceTwo));
+    startNode.addConnection(new Connection("1", "1"));
+    mediumNode.addConnection(new Connection("1", "2"));
+    mediumNode.addConnection(new Connection("1", "3"));
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
+    protocolFactory.addNode(finalChoiceOne);
+    protocolFactory.addNode(finalChoiceTwo);
     Protocol protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
@@ -237,11 +239,13 @@ class ProtocolMonitorTest {
     mediumNode = new Node(TestLayer.class);
     finalChoiceOne = new Node(ChoiceOne.class);
     finalChoiceTwo = new Node(ChoiceTwo.class);
-    startNode.addConnection(new Connection("1", mediumNode));
-    mediumNode.addConnection(new Connection("1", finalChoiceOne));
-    mediumNode.addConnection(new Connection("1", finalChoiceTwo));
+    startNode.addConnection(new Connection("1", "1"));
+    mediumNode.addConnection(new Connection("1", "2"));
+    mediumNode.addConnection(new Connection("1", "3"));
     protocolFactory.addNode(startNode);
     protocolFactory.addNode(mediumNode);
+    protocolFactory.addNode(finalChoiceOne);
+    protocolFactory.addNode(finalChoiceTwo);
     protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
