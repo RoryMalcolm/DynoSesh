@@ -1,16 +1,13 @@
 package com.dynosesh.protocol;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import com.dynosesh.Actor;
 import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.Sendable;
 import com.dynosesh.exceptions.InvalidSessionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by Rory Malcolm on 26/06/2018.
