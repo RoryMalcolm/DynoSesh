@@ -80,3 +80,16 @@ Methods to improve usability of library
 Internal DSL's for Java, Martin Fowler's book on DSLs' / Embedded DSL
 Address management system of some sort
 Potential interfacisation of Actor class
+
+** Decisions Made 04/07
+
+Think about concept of addresses further - maybe not such a big deal ?
+Implementations of actors, get it running somehow ?
+For all actors within the system, which actor name refers to which socket
+CommunicationInterface, network socket, process ID, user interaction
+actor interface, add tasks not ness queue but wider concept of sending processed and correct state transitions
+try get concurrent processes working for next week
+
+edwin example ~
+length of string -> integer
+add two numbers -> receive interger -> receive integer -> return interger
