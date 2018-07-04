@@ -3,3 +3,25 @@
 ## Description
 
 When communicating over a protocol, errors can occur throughout the session which corrupt the state of communication between the parties, this corruption can mean that further communication is impossible, and at worst lead to security vulnerabilites. To navigate around this, in part, session types have been developed - these lay the groundwork for “acceptable” communication over a protocol, allowing for the session to self check to ensure that the state is valid. A type relating to the respective protocol is produced, this is a programmatic representation of the expected inputs and outputs in all cases of the protocol’s features, which is then checked against the “real world” implementation of the protocol. Two approaches can be used to perform this analysis; static checking, which checks the state of the communication is valid at compile time and dynamic checking, which performs the analysis at run time as the program is executing. The aim of this project is to produce a working library that implements dynamically checked session types in Java, allowing for the user to define acceptable protocol communication and have the state consistently checked as transaction of messages between parties occurs.
+
+## API Usage
+The current API specification is as in the code sample that follows, with the ProtocolFactory class exposing an internal domain specific language API to build a finite state machine representation of the protocol that will be tested against. When the protocol representation has been fully built, the build() method returns  a Protocol object which can then be attached to a ProtocolMonitor for checking that communication correctly complies to the specification.
+
+    ProtocolFactory protocolFactory = new ProtocolFactory();
+    Protocol protocol = protocolFactory
+        .node()
+          .payload(null)
+          .connection()
+            .actor("0")
+            .to("1")
+        .node()
+          .payload(TestClass.class)
+          .connection()
+            .actor("0")
+            .to("1")
+        .build();
+    ProtocolMonitor monitor = new ProtocolMonitor(protocol);
+    monitor.addActor(new Actor());
+    monitor.addActor(new Actor());
+
+    monitor.send("0", "1", new TestClass("Hello!"));

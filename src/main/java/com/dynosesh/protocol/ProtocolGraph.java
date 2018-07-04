@@ -8,14 +8,28 @@ import java.util.ArrayList;
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
 public class ProtocolGraph {
-  private ArrayList<Node> nodes;
+
+  static private ArrayList<Node> nodes;
   private Node startNode;
 
   /**
    * The data structure used to contain the inner graph object.
    */
   ProtocolGraph() {
-    this.nodes = new ArrayList<>();
+    nodes = new ArrayList<>();
+  }
+
+  /**
+   * Gets a node within the graph.
+   *
+   * @return The node within the graph
+   */
+  static Node getNode(String key) {
+    return nodes.get(Integer.parseInt(key));
+  }
+
+  static String getNodeAddress(Node node) {
+    return String.valueOf(nodes.indexOf(node));
   }
 
   /**
@@ -27,16 +41,15 @@ public class ProtocolGraph {
     if (node.isStart()) {
       startNode = node;
     }
-    this.nodes.add(node);
+    nodes.add(node);
   }
-
   /**
-   * Gets all the nodes within the graph.
+   * Return the nodes within the graph
    *
    * @return The nodes within the graph
    */
-  public ArrayList<Node> getNodes() {
-    return this.nodes;
+  ArrayList<Node> getNodes() {
+    return nodes;
   }
 
   /**

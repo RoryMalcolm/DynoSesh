@@ -8,6 +8,7 @@ import com.dynosesh.Sendable;
  * @author rorymalcolm
  */
 public class NodeBuilder {
+
   private Node node;
   private ProtocolFactory parentProtocolFactory;
   private boolean payloadAdded;
@@ -40,6 +41,9 @@ public class NodeBuilder {
    * @return The instance of nodebuilder for further operations
    */
   public NodeBuilder payload(Class<? extends Sendable> payload) {
+    if (payloadAdded) {
+      throw new IllegalStateException("Cannot have two payloads!");
+    }
     payloadAdded = true;
     node.addValue(payload);
     return this;
@@ -54,7 +58,7 @@ public class NodeBuilder {
     if (!payloadAdded) {
       throw new IllegalArgumentException("No payload on node");
     }
-    ConnectionBuilder connectionBuilder = new ConnectionBuilder(this);
+    ConnectionBuilder connectionBuilder = new ConnectionBuilder(parentProtocolFactory, this);
     this.node.addConnection(connectionBuilder.getConnection());
     return connectionBuilder;
   }
@@ -68,5 +72,14 @@ public class NodeBuilder {
     NodeBuilder nodeBuilder = new NodeBuilder(this.parentProtocolFactory);
     this.parentProtocolFactory.addNode(nodeBuilder.getNode());
     return nodeBuilder;
+  }
+
+  /**
+   * Returns the completed protocol object if it is valid, throws an IllegalStateException if not
+   *
+   * @return The protocol object
+   */
+  public Protocol build() {
+    return this.parentProtocolFactory.build();
   }
 }

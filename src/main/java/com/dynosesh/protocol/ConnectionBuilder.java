@@ -10,6 +10,7 @@ import java.util.Objects;
 public class ConnectionBuilder {
   private Connection connection;
   private NodeBuilder nodeBuilder;
+  private ProtocolFactory protocolFactory;
 
   /**
    * Non-public ConnectionBuilder constructor, this is ONLY called from the NodeBuilder object.
@@ -20,7 +21,8 @@ public class ConnectionBuilder {
    *
    * @param nodeBuilder The parent NodeBuilder object
    */
-  ConnectionBuilder(NodeBuilder nodeBuilder) {
+  ConnectionBuilder(ProtocolFactory protocolFactory, NodeBuilder nodeBuilder) {
+    this.protocolFactory = protocolFactory;
     connection = new Connection();
     this.nodeBuilder = nodeBuilder;
   }
@@ -41,7 +43,7 @@ public class ConnectionBuilder {
    * @return The current object for chaining methods
    */
   public ConnectionBuilder actor(String actorAddress) {
-    this.connection.setAddress(actorAddress);
+    this.connection.setActorAddress(actorAddress);
     return this;
   }
 
@@ -49,12 +51,12 @@ public class ConnectionBuilder {
    * The finalisation step of the connection aspect of the DSL - returns the parent nodebuilder
    * after setting the node that it is connecting to.
    *
-   * @param node The node to connect to
+   * @param nodeKey The node to connect to
    * @return The parent nodebuilder
    */
-  public NodeBuilder to(Node node) {
-    this.connection.setNode(node);
-    if (Objects.equals(this.connection.getAddress(), "")) {
+  public NodeBuilder to(String nodeKey) {
+    this.connection.setNodeAddress(nodeKey);
+    if (Objects.equals(this.connection.getActorAddress(), "")) {
       throw new IllegalArgumentException("No actor address defined");
     }
     return this.nodeBuilder;

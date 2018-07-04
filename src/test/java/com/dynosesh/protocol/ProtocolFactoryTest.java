@@ -1,9 +1,14 @@
 package com.dynosesh.protocol;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import com.dynosesh.Actor;
+import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.Sendable;
+import com.dynosesh.exceptions.InvalidSessionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +43,38 @@ class ProtocolFactoryTest {
       thrown = true;
     }
     assertTrue(thrown);
+  }
+
+  @Test
+  void twoStartNodesBuild() {
+    protocolFactory.addNode(new Node(null));
+    protocolFactory.addNode(new Node(null));
+    assertThrows(IllegalStateException.class, () -> protocolFactory.build());
+  }
+
+  @Test
+  void node() {
+    Protocol protocol = protocolFactory
+        .node()
+        .payload(null)
+        .connection()
+        .actor("0")
+        .to("1")
+        .node()
+        .payload(TestClass.class)
+        .connection()
+        .actor("0")
+        .to("1")
+        .build();
+    ProtocolMonitor monitor = new ProtocolMonitor(protocol);
+    monitor.addActor(new Actor());
+    monitor.addActor(new Actor());
+    try {
+      monitor.send("0", "1", new TestClass("Hello!"));
+    } catch (InvalidSessionException e) {
+      e.printStackTrace();
+      fail("Errored on transmission");
+    }
   }
 
   class TestClass extends Sendable {
