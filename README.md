@@ -10,17 +10,17 @@ The current API specification is as in the code sample that follows, with the Pr
 ```java
 ProtocolFactory protocolFactory = new ProtocolFactory();
 Protocol protocol = protocolFactory
-    .node()
-      .payload(null)
-      .connection()
-       .actor("0")
-       .to("1")
-      node()
-      .payload(TestClass.class)
-      .connection()
-        .actor("0")
-        .to("1")
-    .build();
+      .node()
+        .payload(null)
+        .connection()
+          .actor("0")
+          .to("1")
+      .node()
+        .payload(TestClass.class)
+        .connection()
+          .actor("0")
+          .to("1")
+      .build();
 ProtocolMonitor monitor = new ProtocolMonitor(protocol);
 monitor.addActor(new Actor());
 monitor.addActor(new Actor());
