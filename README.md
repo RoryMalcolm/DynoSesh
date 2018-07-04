@@ -7,21 +7,23 @@ When communicating over a protocol, errors can occur throughout the session whic
 ## API Usage
 The current API specification is as in the code sample that follows, with the ProtocolFactory class exposing an internal domain specific language API to build a finite state machine representation of the protocol that will be tested against. When the protocol representation has been fully built, the build() method returns  a Protocol object which can then be attached to a ProtocolMonitor for checking that communication correctly complies to the specification.
 
-    ProtocolFactory protocolFactory = new ProtocolFactory();
-    Protocol protocol = protocolFactory
-        .node()
-          .payload(null)
-          .connection()
-            .actor("0")
-            .to("1")
-        .node()
-          .payload(TestClass.class)
-          .connection()
-            .actor("0")
-            .to("1")
-        .build();
-    ProtocolMonitor monitor = new ProtocolMonitor(protocol);
-    monitor.addActor(new Actor());
-    monitor.addActor(new Actor());
+```java
+ProtocolFactory protocolFactory = new ProtocolFactory();
+Protocol protocol = protocolFactory
+    .node()
+      .payload(null)
+      .connection()
+       .actor("0")
+       .to("1")
+      node()
+      .payload(TestClass.class)
+      .connection()
+        .actor("0")
+        .to("1")
+    .build();
+ProtocolMonitor monitor = new ProtocolMonitor(protocol);
+monitor.addActor(new Actor());
+monitor.addActor(new Actor());
 
-    monitor.send("0", "1", new TestClass("Hello!"));
+monitor.send("0", "1", new TestClass("Hello!"));
+```
