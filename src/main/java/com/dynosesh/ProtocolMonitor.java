@@ -1,6 +1,6 @@
 package com.dynosesh;
 
-import com.dynosesh.actor.QueueActor;
+import com.dynosesh.actor.Actor;
 import com.dynosesh.exceptions.InvalidSessionException;
 import com.dynosesh.protocol.Protocol;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class ProtocolMonitor {
 
-  private Map<String, QueueActor> actorMap;
+  private Map<String, Actor> actorMap;
   private Protocol protocol;
   private int actorCount;
 
@@ -38,7 +38,7 @@ public class ProtocolMonitor {
    *
    * @param actor The actor reference
    */
-  public void addActor(QueueActor actor) {
+  public void addActor(Actor actor) {
     this.actorMap.put(String.valueOf(actorCount), actor);
     actorCount++;
   }
@@ -49,7 +49,7 @@ public class ProtocolMonitor {
    * @param key The key for searching the map with
    * @return The actor object
    */
-  public QueueActor getActor(String key) {
+  public Actor getActor(String key) {
     return this.actorMap.get(key);
   }
 
