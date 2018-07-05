@@ -3,6 +3,7 @@ package com.dynosesh;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.dynosesh.actor.QueueActor;
 import com.dynosesh.exceptions.InvalidSessionException;
 import com.dynosesh.protocol.Connection;
 import com.dynosesh.protocol.Node;
@@ -32,7 +33,7 @@ class ProtocolMonitorTest {
     Protocol protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(new Actor());
+      protocolMonitor.addActor(new QueueActor());
     }
   }
 
@@ -132,7 +133,7 @@ class ProtocolMonitorTest {
     protocolFactory.addNode(finishNode);
     protocolMonitor = new ProtocolMonitor(protocolFactory.build());
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(new Actor());
+      protocolMonitor.addActor(new QueueActor());
     }
     try {
       protocolMonitor.send("0",
@@ -158,7 +159,7 @@ class ProtocolMonitorTest {
     Protocol protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(new Actor());
+      protocolMonitor.addActor(new QueueActor());
     }
     try {
       protocolMonitor.send("1",
@@ -224,7 +225,7 @@ class ProtocolMonitorTest {
     Protocol protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(new Actor());
+      protocolMonitor.addActor(new QueueActor());
     }
     try {
       protocolMonitor.send("1",
@@ -249,7 +250,7 @@ class ProtocolMonitorTest {
     protocol = protocolFactory.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
-      protocolMonitor.addActor(new Actor());
+      protocolMonitor.addActor(new QueueActor());
     }
     try {
       protocolMonitor.send("1",

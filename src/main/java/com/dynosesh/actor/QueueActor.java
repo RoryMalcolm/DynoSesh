@@ -1,5 +1,6 @@
-package com.dynosesh;
+package com.dynosesh.actor;
 
+import com.dynosesh.Sendable;
 import java.util.ArrayDeque;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayDeque;
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-public class Actor {
+public class QueueActor implements Actor {
   private ArrayDeque<Sendable> tasks;
 
   /**
@@ -17,17 +18,18 @@ public class Actor {
    * Used to send and receive tasks across the protocol monitor for processing
    * </p>
    */
-  public Actor() {
+  public QueueActor() {
     this.tasks = new ArrayDeque<>();
   }
 
   /**
    * Adds a task to the actor's task queue
    *
-   * @param task The task for adding to the queue
+   * @param sendable The task for adding to the queue
    */
-  public void addTask(Sendable task) {
-    this.tasks.push(task);
+  @Override
+  public void sendTask(Sendable sendable) {
+    this.tasks.push(sendable);
   }
 
   /**
@@ -35,7 +37,8 @@ public class Actor {
    *
    * @return The task at the top of the queue
    */
-  public Sendable getTask() {
+  @Override
+  public Sendable receiveTask() {
     return this.tasks.pop();
   }
 }

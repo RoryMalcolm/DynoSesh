@@ -3,6 +3,7 @@ package com.dynosesh;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.dynosesh.actor.QueueActor;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,13 +13,13 @@ import org.junit.jupiter.api.Test;
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-class ActorTest {
+class QueueActorTest {
 
-  private Actor actor;
+  private QueueActor actor;
 
   @BeforeEach
   void setUp() {
-    actor = new Actor();
+    actor = new QueueActor();
   }
 
   @Test
@@ -34,14 +35,14 @@ class ActorTest {
   private void testTaskQueue() {
     boolean thrown = false;
     try {
-      actor.getTask();
+      actor.receiveTask();
     } catch (NoSuchElementException e) {
       thrown = true;
     }
     assertTrue(thrown);
     TestClass testClass = new TestClass("Test test");
-    actor.addTask(testClass);
-    assertEquals(testClass, actor.getTask());
+    actor.sendTask(testClass);
+    assertEquals(testClass, actor.receiveTask());
   }
 
   class TestClass extends Sendable {

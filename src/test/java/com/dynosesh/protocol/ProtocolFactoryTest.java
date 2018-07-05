@@ -1,13 +1,16 @@
 package com.dynosesh.protocol;
 
-import com.dynosesh.Actor;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.Sendable;
+import com.dynosesh.actor.QueueActor;
 import com.dynosesh.exceptions.InvalidSessionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by Rory Malcolm on 26/06/2018.
@@ -64,8 +67,8 @@ class ProtocolFactoryTest {
         .to("1")
         .build();
     ProtocolMonitor monitor = new ProtocolMonitor(protocol);
-    monitor.addActor(new Actor());
-    monitor.addActor(new Actor());
+    monitor.addActor(new QueueActor());
+    monitor.addActor(new QueueActor());
     try {
       monitor.send("0", "1", new TestClass("Hello!"));
     } catch (InvalidSessionException e) {
