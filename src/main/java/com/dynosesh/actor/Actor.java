@@ -1,6 +1,7 @@
 package com.dynosesh.actor;
 
 import com.dynosesh.Sendable;
+import com.dynosesh.exceptions.InvalidSessionException;
 
 public interface Actor {
 
@@ -16,5 +17,5 @@ public interface Actor {
    *
    * @return The task from the actor
    */
-  Sendable receiveTask();
+  Sendable receiveTask() throws InvalidSessionException;
 }
