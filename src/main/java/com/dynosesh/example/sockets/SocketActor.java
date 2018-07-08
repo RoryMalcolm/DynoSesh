@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketActor implements Actor {
+public class SocketActor implements Actor, Runnable {
 
   private Socket client;
   private ProtocolMonitor protocolMonitor;
@@ -67,6 +67,18 @@ public class SocketActor implements Actor {
       return sendable;
     } catch (IOException | ClassNotFoundException e) {
       return null;
+    }
+  }
+
+  @Override
+  public void run() {
+    while (true) {
+      try {
+        receiveTask();
+      } catch (InvalidSessionException e) {
+        System.out.println("Invalid Session.... \n Closing....");
+        System.exit(1);
+      }
     }
   }
 }
