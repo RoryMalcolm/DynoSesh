@@ -3,7 +3,7 @@ package com.dynosesh.example.sockets;
 import com.dynosesh.Sendable;
 import java.io.Serializable;
 
-public class SendableString extends Sendable implements Serializable {
+class SendableString extends Sendable implements Serializable {
 
   /**
    * Used to facilitate communication over a protocol.
