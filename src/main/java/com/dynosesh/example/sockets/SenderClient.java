@@ -17,7 +17,10 @@ public class SenderClient implements Runnable {
     try {
       Socket socket = new Socket("localhost", port);
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-      objectOutputStream.writeObject(new SendableString("Hello, world", "1"));
+      for (int i = 0; i < 10; i++) {
+        objectOutputStream.writeObject(new SendableString("Hello, world", "1"));
+        objectOutputStream.flush();
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }

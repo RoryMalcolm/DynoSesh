@@ -17,6 +17,8 @@ public class SocketActor implements Actor, Runnable {
   private Socket client;
   private ProtocolMonitor protocolMonitor;
   private String address;
+  private ObjectOutputStream objectOutputStream;
+  private ObjectInputStream objectInputStream;
 
   /**
    * Creates a WebSocket on the inputted port
@@ -25,6 +27,8 @@ public class SocketActor implements Actor, Runnable {
    */
   SocketActor(int port, ProtocolMonitor protocolMonitor, String address) {
     try {
+      this.objectInputStream = null;
+      this.objectOutputStream = null;
       this.protocolMonitor = protocolMonitor;
       this.address = address;
       ServerSocket webSocket = new ServerSocket(port);
@@ -42,10 +46,11 @@ public class SocketActor implements Actor, Runnable {
   @Override
   public void sendTask(Sendable sendable) {
     try {
-      OutputStream outputStream = client.getOutputStream();
-      ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-      objectOutputStream.writeObject(sendable);
-      objectOutputStream.close();
+      if (this.objectOutputStream == null) {
+        OutputStream outputStream = client.getOutputStream();
+        this.objectOutputStream = new ObjectOutputStream(outputStream);
+      }
+      this.objectOutputStream.writeObject(sendable);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -59,14 +64,16 @@ public class SocketActor implements Actor, Runnable {
   @Override
   public Sendable receiveTask() throws InvalidSessionException {
     try {
-      InputStream inputStream = client.getInputStream();
-      ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-      Sendable sendable = (Sendable) objectInputStream.readObject();
+      if (this.objectInputStream == null) {
+        InputStream inputStream = client.getInputStream();
+        this.objectInputStream = new ObjectInputStream(inputStream);
+      }
+      Sendable sendable = (Sendable) this.objectInputStream.readObject();
       protocolMonitor.send(this.address, sendable.getTarget(), sendable);
-      objectInputStream.close();
       return sendable;
     } catch (IOException | ClassNotFoundException e) {
-      return null;
+      e.printStackTrace();
+      throw new InvalidSessionException("Invalid session");
     }
   }
 

@@ -18,8 +18,10 @@ public class ReceiverClient implements Runnable {
     try {
       Socket socket = new Socket("localhost", port);
       ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-      Sendable sendable = (Sendable) objectInputStream.readObject();
-      System.out.println(sendable.getPayload());
+      for (int i = 0; i < 10; i++) {
+        Sendable sendable = (Sendable) objectInputStream.readObject();
+        System.out.println(sendable.getPayload());
+      }
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
