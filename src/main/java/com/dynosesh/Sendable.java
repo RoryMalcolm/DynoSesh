@@ -26,6 +26,16 @@ public abstract class Sendable<T> implements Serializable {
     this.target = "";
   }
 
+  /**
+   * Used to facilitate communication over a protocol.
+   * <p>
+   * Contains a payload, the type of which is checked to ensure it complies to the protocol
+   * implementation.
+   * </p>
+   *
+   * @param payload The payload of the message
+   * @param target The target of the message
+   */
   public Sendable(T payload, String target) {
     this.payload = payload;
     this.target = target;
@@ -40,10 +50,20 @@ public abstract class Sendable<T> implements Serializable {
     return payload;
   }
 
+  /**
+   * Gets the target to send the Sendable to
+   *
+   * @return The target
+   */
   public String getTarget() {
     return this.target;
   }
 
+  /**
+   * Returns a string representation of the Sendable object
+   *
+   * @return The object as a string
+   */
   @Override
   public String toString() {
     return super.toString();

@@ -4,8 +4,18 @@ import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.protocol.Protocol;
 import com.dynosesh.protocol.ProtocolFactory;
 
+/**
+ * Created by Rory Malcolm on 09/07/2018.
+ *
+ * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
+ */
 public class Runner {
 
+  /**
+   * Starts the protocol showcase
+   *
+   * @param args Arguments from the command line - unused
+   */
   public static void main(String[] args) {
     ProtocolFactory protocolFactory = new ProtocolFactory();
     Protocol protocol = protocolFactory

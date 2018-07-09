@@ -22,8 +22,13 @@ Protocol protocol = protocolFactory
           .to("1")
       .build();
 ProtocolMonitor monitor = new ProtocolMonitor(protocol);
-monitor.addActor(new Actor());
-monitor.addActor(new Actor());
+monitor.addActor(new QueueActor());
+monitor.addActor(new QueueActor());
 
 monitor.send("0", "1", new TestClass("Hello!"));
 ```
+
+## Examples
+
+Examples of potential use cases are stored within the 'example' package within the ```/src/main/java/com/dynosesh``` folder.
+The sockets example shows an implementation of the session type library running over a (local, but model can be expanded further afield) network. The example shows the main implementation stages, with a central ProtocolMonitor used to control and check that communication over the protocol is correct.

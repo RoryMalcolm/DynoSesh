@@ -12,6 +12,11 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Created by Rory Malcolm on 09/07/2018.
+ *
+ * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
+ */
 public class SocketActor implements Actor, Runnable {
 
   private Socket client;
@@ -77,6 +82,9 @@ public class SocketActor implements Actor, Runnable {
     }
   }
 
+  /**
+   * Constantly receives tasks and processes them, will hit invalid session if incorrect, then logs
+   */
   @Override
   public void run() {
     while (true) {
