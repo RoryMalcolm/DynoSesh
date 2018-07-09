@@ -80,4 +80,13 @@ public class Protocol {
   private ArrayList<Connection> getConnectingNodes() {
     return this.protocol.getConnections(currentNode);
   }
+
+  /**
+   * Returns true if the current node has no onward connections.
+   *
+   * @return True if the node is a terminus node
+   */
+  public boolean isTerminus() {
+    return this.protocol.getConnections(currentNode).size() == 0;
+  }
 }

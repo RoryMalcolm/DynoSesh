@@ -21,8 +21,8 @@ public class ProtocolMonitor {
    * Used to ensure that communication complies to the protocol implementation.
    *
    * <p>
-   * Allows for communication over a protocol and throws an error if communication does
-   * not comply to the standard.
+   * Allows for communication over a protocol and throws an error if communication does not comply
+   * to the standard.
    * </p>
    *
    * @param protocol The protocol that will be checked against
@@ -62,7 +62,7 @@ public class ProtocolMonitor {
    * @throws InvalidSessionException Thrown when there is a session type error
    */
   public void send(String senderAddress,
-                   String receiverAddress, Sendable payload) throws InvalidSessionException {
+      String receiverAddress, Sendable payload) throws InvalidSessionException {
     if (this.actorMap.size() == 0) {
       throw new IllegalArgumentException("The protocol does not currently contain actors");
     }
@@ -75,5 +75,14 @@ public class ProtocolMonitor {
     } else {
       throw new InvalidSessionException("Attempted an invalid protocol movement");
     }
+  }
+
+  /**
+   * Returns true if the current node has no onward connections.
+   *
+   * @return True if the node is a terminus node
+   */
+  public boolean isTerminus() {
+    return this.protocol.isTerminus();
   }
 }
