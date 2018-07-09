@@ -83,7 +83,7 @@ public class SocketActor implements Actor, Runnable {
       try {
         receiveTask();
       } catch (InvalidSessionException e) {
-        System.out.println("Invalid Session.... \n Closing....");
+        System.out.println("Invalid Session....\n Closing....");
         System.exit(1);
       }
     }
