@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.toList;
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-public class ProtocolFactory {
+public class ProtocolBuilder {
 
   private Protocol protocol;
   private boolean hasStart = false;
@@ -19,7 +19,7 @@ public class ProtocolFactory {
    * is not the case
    * </p>
    */
-  public ProtocolFactory() {
+  public ProtocolBuilder() {
     protocol = new Protocol();
   }
 

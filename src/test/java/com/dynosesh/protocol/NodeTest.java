@@ -22,10 +22,10 @@ class NodeTest {
   void setUp() {
     startNode = new Node(null);
     nonStartNode = new Node(TestClass.class);
-    ProtocolFactory protocolFactory = new ProtocolFactory();
-    protocolFactory.addNode(startNode);
-    protocolFactory.addNode(nonStartNode);
-    protocolFactory.build();
+    ProtocolBuilder protocolBuilder = new ProtocolBuilder();
+    protocolBuilder.addNode(startNode);
+    protocolBuilder.addNode(nonStartNode);
+    protocolBuilder.build();
   }
 
   @Test

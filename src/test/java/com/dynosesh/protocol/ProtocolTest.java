@@ -14,16 +14,16 @@ class ProtocolTest {
 
   @BeforeEach
   void setUp() {
-    ProtocolFactory protocolFactory = new ProtocolFactory();
+    ProtocolBuilder protocolBuilder = new ProtocolBuilder();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
     startNode.addConnection(new Connection("1", "1"));
     mediumNode.addConnection(new Connection("1", "2"));
-    protocolFactory.addNode(startNode);
-    protocolFactory.addNode(mediumNode);
-    protocolFactory.addNode(finishNode);
-    protocol = protocolFactory.build();
+    protocolBuilder.addNode(startNode);
+    protocolBuilder.addNode(mediumNode);
+    protocolBuilder.addNode(finishNode);
+    protocol = protocolBuilder.build();
   }
 
   private Protocol protocol;

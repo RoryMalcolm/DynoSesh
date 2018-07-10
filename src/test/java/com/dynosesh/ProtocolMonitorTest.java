@@ -8,7 +8,7 @@ import com.dynosesh.exceptions.InvalidSessionException;
 import com.dynosesh.protocol.Connection;
 import com.dynosesh.protocol.Node;
 import com.dynosesh.protocol.Protocol;
-import com.dynosesh.protocol.ProtocolFactory;
+import com.dynosesh.protocol.ProtocolBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,16 +21,16 @@ class ProtocolMonitorTest {
 
   @BeforeEach
   void setUp() {
-    ProtocolFactory protocolFactory = new ProtocolFactory();
+    ProtocolBuilder protocolBuilder = new ProtocolBuilder();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
     startNode.addConnection(new Connection("1", "1"));
     mediumNode.addConnection(new Connection("1", "2"));
-    protocolFactory.addNode(startNode);
-    protocolFactory.addNode(mediumNode);
-    protocolFactory.addNode(finishNode);
-    Protocol protocol = protocolFactory.build();
+    protocolBuilder.addNode(startNode);
+    protocolBuilder.addNode(mediumNode);
+    protocolBuilder.addNode(finishNode);
+    Protocol protocol = protocolBuilder.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
       protocolMonitor.addActor(new QueueActor());
@@ -122,16 +122,16 @@ class ProtocolMonitorTest {
       }
     }
 
-    ProtocolFactory protocolFactory = new ProtocolFactory();
+    ProtocolBuilder protocolBuilder = new ProtocolBuilder();
     Node startNode = new Node(null);
     Node mediumNode = new Node(HttpRequest.class);
     Node finishNode = new Node(HttpResponse.class);
     startNode.addConnection(new Connection("0", "1"));
     mediumNode.addConnection(new Connection("1", "2"));
-    protocolFactory.addNode(startNode);
-    protocolFactory.addNode(mediumNode);
-    protocolFactory.addNode(finishNode);
-    protocolMonitor = new ProtocolMonitor(protocolFactory.build());
+    protocolBuilder.addNode(startNode);
+    protocolBuilder.addNode(mediumNode);
+    protocolBuilder.addNode(finishNode);
+    protocolMonitor = new ProtocolMonitor(protocolBuilder.build());
     for (int i = 0; i < 10; i++) {
       protocolMonitor.addActor(new QueueActor());
     }
@@ -149,14 +149,14 @@ class ProtocolMonitorTest {
 
   @Test
   void recursiveGraphTest() {
-    ProtocolFactory protocolFactory = new ProtocolFactory();
+    ProtocolBuilder protocolBuilder = new ProtocolBuilder();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     startNode.addConnection(new Connection("1", "1"));
     mediumNode.addConnection(new Connection("1", "1"));
-    protocolFactory.addNode(startNode);
-    protocolFactory.addNode(mediumNode);
-    Protocol protocol = protocolFactory.build();
+    protocolBuilder.addNode(startNode);
+    protocolBuilder.addNode(mediumNode);
+    Protocol protocol = protocolBuilder.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
       protocolMonitor.addActor(new QueueActor());
@@ -210,7 +210,7 @@ class ProtocolMonitorTest {
         super(payload);
       }
     }
-    ProtocolFactory protocolFactory = new ProtocolFactory();
+    ProtocolBuilder protocolBuilder = new ProtocolBuilder();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finalChoiceOne = new Node(ChoiceOne.class);
@@ -218,11 +218,11 @@ class ProtocolMonitorTest {
     startNode.addConnection(new Connection("1", "1"));
     mediumNode.addConnection(new Connection("1", "2"));
     mediumNode.addConnection(new Connection("1", "3"));
-    protocolFactory.addNode(startNode);
-    protocolFactory.addNode(mediumNode);
-    protocolFactory.addNode(finalChoiceOne);
-    protocolFactory.addNode(finalChoiceTwo);
-    Protocol protocol = protocolFactory.build();
+    protocolBuilder.addNode(startNode);
+    protocolBuilder.addNode(mediumNode);
+    protocolBuilder.addNode(finalChoiceOne);
+    protocolBuilder.addNode(finalChoiceTwo);
+    Protocol protocol = protocolBuilder.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
       protocolMonitor.addActor(new QueueActor());
@@ -235,7 +235,7 @@ class ProtocolMonitorTest {
     } catch (InvalidSessionException e) {
       fail("Errored on choice");
     }
-    protocolFactory = new ProtocolFactory();
+    protocolBuilder = new ProtocolBuilder();
     startNode = new Node(null);
     mediumNode = new Node(TestLayer.class);
     finalChoiceOne = new Node(ChoiceOne.class);
@@ -243,11 +243,11 @@ class ProtocolMonitorTest {
     startNode.addConnection(new Connection("1", "1"));
     mediumNode.addConnection(new Connection("1", "2"));
     mediumNode.addConnection(new Connection("1", "3"));
-    protocolFactory.addNode(startNode);
-    protocolFactory.addNode(mediumNode);
-    protocolFactory.addNode(finalChoiceOne);
-    protocolFactory.addNode(finalChoiceTwo);
-    protocol = protocolFactory.build();
+    protocolBuilder.addNode(startNode);
+    protocolBuilder.addNode(mediumNode);
+    protocolBuilder.addNode(finalChoiceOne);
+    protocolBuilder.addNode(finalChoiceTwo);
+    protocol = protocolBuilder.build();
     protocolMonitor = new ProtocolMonitor(protocol);
     for (int i = 0; i < 10; i++) {
       protocolMonitor.addActor(new QueueActor());

@@ -2,7 +2,7 @@ package com.dynosesh.example.sockets;
 
 import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.protocol.Protocol;
-import com.dynosesh.protocol.ProtocolFactory;
+import com.dynosesh.protocol.ProtocolBuilder;
 
 /**
  * Created by Rory Malcolm on 09/07/2018.
@@ -17,8 +17,8 @@ public class Runner {
    * @param args Arguments from the command line - unused
    */
   public static void main(String[] args) {
-    ProtocolFactory protocolFactory = new ProtocolFactory();
-    Protocol protocol = protocolFactory
+    ProtocolBuilder protocolBuilder = new ProtocolBuilder();
+    Protocol protocol = protocolBuilder
         .node()
         .payload(null)
         .connection()

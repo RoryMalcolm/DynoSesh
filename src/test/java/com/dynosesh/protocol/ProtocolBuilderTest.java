@@ -17,28 +17,28 @@ import org.junit.jupiter.api.Test;
  *
  * @author Rory Malcolm (rorymckenziemalcolm@gmail.com)
  */
-class ProtocolFactoryTest {
+class ProtocolBuilderTest {
 
-  private ProtocolFactory protocolFactory;
+  private ProtocolBuilder protocolBuilder;
 
   @BeforeEach
   void setUp() {
-    protocolFactory = new ProtocolFactory();
+    protocolBuilder = new ProtocolBuilder();
   }
 
   @Test
   void addNode() {
-    protocolFactory.addNode(new Node(null));
-    protocolFactory.addNode(new Node(TestClass.class));
-    assertNotNull(protocolFactory.build());
+    protocolBuilder.addNode(new Node(null));
+    protocolBuilder.addNode(new Node(TestClass.class));
+    assertNotNull(protocolBuilder.build());
   }
 
   @Test
   void build() {
     boolean thrown = false;
     try {
-      protocolFactory.addNode(new Node(TestClass.class));
-      protocolFactory.build();
+      protocolBuilder.addNode(new Node(TestClass.class));
+      protocolBuilder.build();
     } catch (Exception e) {
       thrown = true;
     }
@@ -47,14 +47,14 @@ class ProtocolFactoryTest {
 
   @Test
   void twoStartNodesBuild() {
-    protocolFactory.addNode(new Node(null));
-    protocolFactory.addNode(new Node(null));
-    assertThrows(IllegalStateException.class, () -> protocolFactory.build());
+    protocolBuilder.addNode(new Node(null));
+    protocolBuilder.addNode(new Node(null));
+    assertThrows(IllegalStateException.class, () -> protocolBuilder.build());
   }
 
   @Test
   void node() {
-    Protocol protocol = protocolFactory
+    Protocol protocol = protocolBuilder
         .node()
         .payload(null)
         .connection()

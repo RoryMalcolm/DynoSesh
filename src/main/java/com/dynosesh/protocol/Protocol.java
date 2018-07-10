@@ -14,7 +14,7 @@ public class Protocol {
   private Node currentNode;
 
   /**
-   * The default constructor for the Protocol class invoked by the build method in ProtocolFactory
+   * The default constructor for the Protocol class invoked by the build method in ProtocolBuilder
    * <p>
    * Used to traverse a graph representation of a protocol finite state machine
    * </p>

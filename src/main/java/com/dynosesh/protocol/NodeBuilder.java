@@ -10,18 +10,18 @@ import com.dynosesh.Sendable;
 public class NodeBuilder {
 
   private Node node;
-  private ProtocolFactory parentProtocolFactory;
+  private ProtocolBuilder parentProtocolBuilder;
   private boolean payloadAdded;
 
   /**
-   * Non-public NodeBuilder constructor called from within the ProtocolFactory which is passed down
+   * Non-public NodeBuilder constructor called from within the ProtocolBuilder which is passed down
    * to this object through a parameter.
    *
-   * @param parentProtocolFactory The ProtocolFactory which created this object
+   * @param parentProtocolBuilder The ProtocolBuilder which created this object
    */
-  NodeBuilder(ProtocolFactory parentProtocolFactory) {
+  NodeBuilder(ProtocolBuilder parentProtocolBuilder) {
     node = new Node(null);
-    this.parentProtocolFactory = parentProtocolFactory;
+    this.parentProtocolBuilder = parentProtocolBuilder;
     payloadAdded = false;
   }
 
@@ -58,7 +58,7 @@ public class NodeBuilder {
     if (!payloadAdded) {
       throw new IllegalArgumentException("No payload on node");
     }
-    ConnectionBuilder connectionBuilder = new ConnectionBuilder(parentProtocolFactory, this);
+    ConnectionBuilder connectionBuilder = new ConnectionBuilder(parentProtocolBuilder, this);
     this.node.addConnection(connectionBuilder.getConnection());
     return connectionBuilder;
   }
@@ -69,8 +69,8 @@ public class NodeBuilder {
    * @return The new node's NodeBuilder object
    */
   public NodeBuilder node() {
-    NodeBuilder nodeBuilder = new NodeBuilder(this.parentProtocolFactory);
-    this.parentProtocolFactory.addNode(nodeBuilder.getNode());
+    NodeBuilder nodeBuilder = new NodeBuilder(this.parentProtocolBuilder);
+    this.parentProtocolBuilder.addNode(nodeBuilder.getNode());
     return nodeBuilder;
   }
 
@@ -80,6 +80,6 @@ public class NodeBuilder {
    * @return The protocol object
    */
   public Protocol build() {
-    return this.parentProtocolFactory.build();
+    return this.parentProtocolBuilder.build();
   }
 }
