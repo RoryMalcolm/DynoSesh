@@ -49,8 +49,8 @@ public class Runner {
         .build();
     ProtocolMonitor monitor = new ProtocolMonitor(protocol);
     Thread monitorThread = new Thread(new ProtocolServer(monitor));
-    Thread thread = new Thread(new SenderClient(100));
-    Thread thread1 = new Thread(new ReceiverClient(101));
+    Thread thread = new Thread(new SenderClient(2000));
+    Thread thread1 = new Thread(new ReceiverClient(2001));
     monitorThread.start();
     thread.start();
     thread1.start();
