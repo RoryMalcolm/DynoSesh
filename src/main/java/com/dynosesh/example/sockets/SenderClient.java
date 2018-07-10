@@ -1,6 +1,8 @@
 package com.dynosesh.example.sockets;
 
+import com.dynosesh.Sendable;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
@@ -30,11 +32,14 @@ public class SenderClient implements Runnable {
     try {
       Socket socket = new Socket("localhost", port);
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-      for (int i = 0; i < 10; i++) {
-        objectOutputStream.writeObject(new SendableString("Hello, world", "1"));
-        objectOutputStream.flush();
-      }
-    } catch (IOException e) {
+      objectOutputStream.writeObject(new SendableString("Hello, world", "1"));
+//      objectOutputStream.writeObject(new SendableInteger(7, "1"));
+//      objectOutputStream.writeObject(new SendableInteger(10, "1"));
+      ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+      Sendable sendable = (Sendable) objectInputStream.readObject();
+      int lengthOfString = (int) sendable.getPayload();
+      System.out.println("Length: " + lengthOfString);
+    } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
   }

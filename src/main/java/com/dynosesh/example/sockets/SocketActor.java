@@ -87,13 +87,14 @@ public class SocketActor implements Actor, Runnable {
    */
   @Override
   public void run() {
-    while (true) {
+    while (!protocolMonitor.isTerminus()) {
       try {
         receiveTask();
       } catch (InvalidSessionException e) {
-        System.out.println("Invalid Session....\n Closing....");
+        System.out.println("Invalid Session....\nClosing...");
         System.exit(1);
       }
     }
+    System.exit(0);
   }
 }

@@ -3,6 +3,7 @@ package com.dynosesh.example.sockets;
 import com.dynosesh.Sendable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
@@ -31,9 +32,20 @@ public class ReceiverClient implements Runnable {
     try {
       Socket socket = new Socket("localhost", port);
       ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-      for (int i = 0; i < 10; i++) {
-        Sendable sendable = (Sendable) objectInputStream.readObject();
+      Sendable sendable = (Sendable) objectInputStream.readObject();
+      if (sendable.getClass() == SendableString.class) {
         System.out.println(sendable.getPayload());
+        String string = (String) sendable.getPayload();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectOutputStream.writeObject(new SendableInteger(string.length(), "0"));
+      } else if (sendable.getClass() == SendableInteger.class) {
+        int firstInt = (int) sendable.getPayload();
+        System.out.println(sendable.getPayload());
+        sendable = (Sendable) objectInputStream.readObject();
+        System.out.println(sendable.getPayload());
+        int secondInt = (int) sendable.getPayload();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectOutputStream.writeObject(new SendableInteger(firstInt + secondInt, "0"));
       }
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
