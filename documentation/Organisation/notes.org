@@ -93,3 +93,14 @@ try get concurrent processes working for next week
 edwin example ~
 length of string -> integer
 add two numbers -> receive interger -> receive integer -> return interger
+
+** Decision Made 11/07
+
+Fix protocol on macOS
+Break protocol description down into sub methods
+Internal DSL extensions on some level ???
+in built recursion
+pick a protocol that we are going to implement
+irc / http
+potential visualisation software, little svg generating script
+fault injection tool
