@@ -18,8 +18,21 @@ public class Runner {
    */
   public static void main(String[] args) {
     ProtocolBuilder protocolBuilder = new ProtocolBuilder();
+    firstSideOfGraph(protocolBuilder);
+    secondSideOfGraph(protocolBuilder);
     Protocol protocol = protocolBuilder
-        .node()
+        .build();
+    ProtocolMonitor monitor = new ProtocolMonitor(protocol);
+    Thread monitorThread = new Thread(new ProtocolServer(monitor));
+    Thread thread = new Thread(new SenderClient(2000));
+    Thread thread1 = new Thread(new ReceiverClient(2001));
+    monitorThread.start();
+    thread.start();
+    thread1.start();
+  }
+
+  private static void firstSideOfGraph(ProtocolBuilder protocolBuilder) {
+    protocolBuilder.node()
         .payload(null)
         .connection()
         .actor("0")
@@ -31,8 +44,11 @@ public class Runner {
         .payload(SendableString.class)
         .connection()
         .actor("1")
-        .to("2")
-        .node()
+        .to("2");
+  }
+
+  private static void secondSideOfGraph(ProtocolBuilder protocolBuilder) {
+    protocolBuilder.node()
         .payload(SendableInteger.class)
         .node()
         .payload(SendableInteger.class)
@@ -45,14 +61,6 @@ public class Runner {
         .actor("1")
         .to("5")
         .node()
-        .payload(SendableInteger.class)
-        .build();
-    ProtocolMonitor monitor = new ProtocolMonitor(protocol);
-    Thread monitorThread = new Thread(new ProtocolServer(monitor));
-    Thread thread = new Thread(new SenderClient(2000));
-    Thread thread1 = new Thread(new ReceiverClient(2001));
-    monitorThread.start();
-    thread.start();
-    thread1.start();
+        .payload(SendableInteger.class);
   }
 }
