@@ -58,7 +58,7 @@ public class NodeBuilder {
     if (!payloadAdded) {
       throw new IllegalArgumentException("No payload on node");
     }
-    ConnectionBuilder connectionBuilder = new ConnectionBuilder(parentProtocolBuilder, this);
+    ConnectionBuilder connectionBuilder = new ConnectionBuilder(this);
     this.node.addConnection(connectionBuilder.getConnection());
     return connectionBuilder;
   }

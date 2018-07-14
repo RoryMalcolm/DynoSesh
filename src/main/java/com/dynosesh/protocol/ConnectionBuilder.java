@@ -10,7 +10,6 @@ import java.util.Objects;
 public class ConnectionBuilder {
   private Connection connection;
   private NodeBuilder nodeBuilder;
-  private ProtocolBuilder protocolBuilder;
 
   /**
    * Non-public ConnectionBuilder constructor, this is ONLY called from the NodeBuilder object.
@@ -21,8 +20,7 @@ public class ConnectionBuilder {
    *
    * @param nodeBuilder The parent NodeBuilder object
    */
-  ConnectionBuilder(ProtocolBuilder protocolBuilder, NodeBuilder nodeBuilder) {
-    this.protocolBuilder = protocolBuilder;
+  ConnectionBuilder(NodeBuilder nodeBuilder) {
     connection = new Connection();
     this.nodeBuilder = nodeBuilder;
   }
