@@ -21,11 +21,14 @@
 \usepackage[backend=bibtex,style=numeric,citestyle=numeric,sorting=none]{biblatex}
 \addbibresource{bibliography.bib}
 \author{Student Number: 170027195}
-\title{Dynamic Session Types\\Context Plan and Survey}
+\title{DynoSesh: Dynamic Session Types}
 \begin{document}
 	\maketitle
 	\pagebreak
 	\tableofcontents
+	\pagebreak
+	\listoffigures
+	\lstlistoflistings
 	\pagebreak
 	\section{Literature Review}
 	\subsection{Session Types} \label{session types}
@@ -130,62 +133,54 @@ if ((err = SSLHashSHA1.update(
 	goto fail;
 	goto fail;
 	\end{lstlisting}
-	\pagebreak
-	\section{Plan}
-	\begin{enumerate}
-		\item Week One: 18/06/2018 - 24/06/2018
-		\begin{itemize}
-			\item Work to conceptualise structure of implementation
-			\item Begin development work
-		\end{itemize}
-		\item Week Two: 25/06/2018 - 01/07/2018
-		\begin{itemize}
-			\item Continue development work
-			\item Implement basic protocol communication tests
-		\end{itemize}
-		\item Week Three: 02/07/2018 - 08/07/2018
-		\begin{itemize}
-			\item Produce a suite of protocol tests, work to identify issues with implementation
-			\item Begin writing about implementation for thesis
-		\end{itemize}
-		\item Week Four: 09/07/2018 - 15/07/2018
-		\begin{itemize}
-			\item Pick a more complex protocol - such as HTTP - and begin the implementation for showcase next week
-			\item Further thesis writing, expanding upon experience of implementing a complex protocol
-		\end{itemize}
-		\item Week Five: 16/07/2018 - 22/07/2018
-		\begin{itemize}
-			\item Demonstrate work achieved so far to supervisor
-			\item Complete implementation of complex protocol, take experience gained from this to work upon improvements to framework
-		\end{itemize}
-		\item Week Six: 23/07/2018 - 29/07/2018
-		\begin{itemize}
-			\item Continue with development, using any concerns raised from complex protocol development to improve
-			\item First draft of thesis complete, working towards a finished copy, note any concerns that need resolved before final draft
-		\end{itemize}
-		\item Week Seven: 30/07/2018 - 05/08/2018
-		\begin{itemize}
-			\item Potentially implement an extension protocol, such as a cryptographic protocol to fully showcase capabilities of the framework.
-			\item Work on poster draft for showcase.
-			\item Continue with thesis work drafting.
-		\end{itemize}
-		\item Week Eight: 06/08/2018 - 12/08/2018
-		\begin{itemize}
-			\item Decide what final work showcase will look like accounting for time available at the end of the thesis writing process.
-			\item Complete poster, accounting for the work that will be exhibitable to a high degree/
-			\item First final draft of thesis nearing completion
-			\item End the development process, full time working on thesis and other examinable materials.
-		\end{itemize}
-		\item Week Nine: 13/08/2018 - 19/08/2018
-		\begin{itemize}
-			\item Dedicate full week to thesis and poster proof reading and editing.
-		\end{itemize}
-		\item Week Ten: 20/08/2018 - 24/08/2018
-		\begin{itemize}
-			\item Demonstrate poster and demo runs of the framework, ensure the full feature set is displayed.
-			\item Compose final draft for examination and submit.
-		\end{itemize}
-	\end{enumerate}
+	\section{Implementation}
+	\subsection{Domain Specific Language}
+	Users having the ability to express the structure of complex protocols easily is key to the adoption of the library by a wider user-base. It is paramount that this is made as simple as it possibly can, to improve both usability when creating the protocol structure and comprehension when checking it at a later date. As expressed in the literature review, one such standard approach is the Scribble\cite{honda2011scribbling} domain description language, where users create protocols and then use tools to compile the contents to an implementation usable with their language of choice. In a library sense, however, this is imperfect, it requires an extra layer of knowledge from users outside of the normal language paradigm, it increases the learning curve, potentially putting off new users, and requires some form of parsers and compilation process which could prove difficult to implement in the time constraints of the project.
+	
+	Within the domain specific language discourse there is a distinction made between so called ``external'' and ``internal'' domain specific languages\cite{Fowler:2010:DSL:1809745}. External implementations, such as Scribble, are written in a language outside of the implementation language, often within a completely separate file, they are then parsed and comprehended by the runtime that has been implemented to execute them. Internal domain specific languages, however, are written within their implementation language, complying validly with the grammar. A valid expression written using an internal domain specific language will also be valid within the wider implementation language that was used to build it. Fowler provides two examples of this in his book, showing the difference between ``standard'' APIs, shown in listing \ref{lst:normalJavaAPI}, and an implementation of an internal domain specific language that utilises method chaining displayed in listing \ref{lst:intDSLJava}, both providing the same result.
+	
+	\begin{lstlisting}[label={lst:normalJavaAPI}, language=java, frame=single, numbers=left, caption=Object construction in a normal API\cite{Fowler:2010:DSL:1809745}]
+Processor p = new Processor(2, 2500, Processor.Type.i386);
+Disk d1 = new Disk(150, Disk.UNKNOWN_SPEED, null);
+Disk d2 = new Disk(75, 7200, Disk.Interface.SATA);
+return new Computer(p, d1, d2);
+
+	\end{lstlisting}
+	
+\begin{lstlisting}[label={lst:intDSLJava}, language=java, frame=single, numbers=left, caption=Object construction in a method chained internal Domain Specific Language\cite{Fowler:2010:DSL:1809745}]
+computer()
+	.processor()
+		.cores(2)
+		.speed(2500)
+		.i386()
+	.disk()
+		.size(150)
+	.disk()
+		.size(75)
+		.speed(7200)
+		.sata()
+	.end();
+
+	\end{lstlisting}
+	While the latter of the two listings does not look like "regular" Java code, or follow normal recommended standards surrounding line length, it still compiles. If a wider scope than just the code samples relationship to normal Java code is taken however, the purpose of the exercise reveals itself. The internal DSL allows for the abstraction of expressing what the user wants away from normal object creation. Users can now think in terms of ``computers'' which have ``processors'' and ``disks'' and allow for the internal DSL's workings to create the object they need for them. This approach can be applied to the construction of graph representation of protocols, allowing for users to place the structure of the graph at the heart of their reasoning, separate from object construction.
+	
+	An example of the API DynoSesh exposes for constructing protocols is shown in listing \ref{lst:dynoSeshIntDSL}. This will result in a protocol of two nodes, with one start node that accepts a single \texttt{TestClass} sent over the protocol from actor 0, and then another node which will recursively accept more \texttt{TestClass} objects from actor 0 infinitely. During the construction of a protocol, nodes that are declared earlier in the process need to be able to potentially access those which are defined later, therefore no connections between objects are instantiated until the \texttt{NodeBuilder.build()} method is called to create the protocol. There are a number of error checking procedures controlling protocol construction to ensure that invalid protocols cannot be produced, these include but are not limited to ensuring that a single protocol cannot have more than one start node.
+	\begin{lstlisting}[label={lst:dynoSeshIntDSL}, language=java, frame=single, numbers=left, caption=Construction of a DynoSesh graph using the internal DSL]
+ProtocolBuilder protocolBuilder = new ProtocolBuilder();
+Protocol protocol = protocolBuilder
+	.node()
+		.payload(null)
+		.connection()
+			.actor(``0'')
+			.to(``1'')
+	.node()
+	.payload(TestClass.class)
+		.connection()
+			.actor(``0'')
+			.to(``1'')
+	.build();
+	\end{lstlisting}
+	The internal DSL also allows for the creation of branches, with one node able to have multiple connections, there are a number of paths that communication can take throughout the protocol graph depending on what transmissions occur.
 	\pagebreak
 	\printbibliography
 \end{document}
