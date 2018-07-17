@@ -39,6 +39,7 @@ public class SenderClient implements Runnable {
       Sendable sendable = (Sendable) objectInputStream.readObject();
       int lengthOfString = (int) sendable.getPayload();
       System.out.println("Length: " + lengthOfString);
+      System.exit(0);
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
