@@ -1,6 +1,5 @@
 package com.dynosesh.example.http;
 
-import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.example.http.types.Certificate;
 import com.dynosesh.example.http.types.CertificateRequest;
 import com.dynosesh.example.http.types.CertificateVerify;
@@ -36,13 +35,7 @@ public class Runner {
     finalSectionOfTransmission(protocolBuilder);
     Protocol protocol = protocolBuilder
         .build();
-    ProtocolMonitor monitor = new ProtocolMonitor(protocol);
-    Thread monitorThread = new Thread(new ProtocolServer(monitor));
-    Thread thread = new Thread(new SenderClient(2000));
-    Thread thread1 = new Thread(new ReceiverClient(2001));
-    monitorThread.start();
-    thread.start();
-    thread1.start();
+    System.out.print(protocol);
   }
 
   private static void firstSectionOfTransmission(ProtocolBuilder protocolBuilder) {
@@ -84,6 +77,8 @@ public class Runner {
   }
 
   private static void thirdSectionOfTransmission(ProtocolBuilder protocolBuilder) {
+    //Path taken if a key exchange needs to occur, with intermediate steps which add a layer
+    //of security
     protocolBuilder
         .node()
           .payload(Certificate.class)
@@ -123,6 +118,7 @@ public class Runner {
   }
 
   private static void finalSectionOfTransmission(ProtocolBuilder protocolBuilder) {
+    //The finale - executed after all key exchange has occurred
     protocolBuilder
         .node()
           .payload(ChangeCipherSpec.class)
