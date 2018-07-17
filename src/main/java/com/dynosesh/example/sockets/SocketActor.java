@@ -95,6 +95,5 @@ public class SocketActor implements Actor, Runnable {
         System.exit(1);
       }
     }
-    System.exit(0);
   }
 }
