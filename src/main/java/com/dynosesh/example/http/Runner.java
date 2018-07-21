@@ -1,5 +1,6 @@
 package com.dynosesh.example.http;
 
+import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.example.http.types.Certificate;
 import com.dynosesh.example.http.types.CertificateRequest;
 import com.dynosesh.example.http.types.CertificateVerify;
@@ -35,6 +36,12 @@ public class Runner {
     finalSectionOfTransmission(protocolBuilder);
     Protocol protocol = protocolBuilder
         .build();
+    Thread monitorThread = new Thread(new ProtocolServer(new ProtocolMonitor(protocol)));
+    Thread receiverThread = new Thread(new Client(2050));
+    Thread clientThread = new Thread(new Server(2051, true));
+    monitorThread.start();
+    receiverThread.start();
+    clientThread.start();
     System.out.print(protocol);
   }
 
