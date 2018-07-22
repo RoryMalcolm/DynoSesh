@@ -134,6 +134,13 @@ if ((err = SSLHashSHA1.update(
 	goto fail;
 	\end{lstlisting}
 	\section{Implementation}
+	\subsection{Protocol Representation}
+	One of the key tasks with regards to the implementation of DynoSesh was producing a coherent strategy to represent the structure of protocols within the system. While approaches for this problem exist, none were fit for application in my project. The academic discourse around session types, as explained earlier in the literature review, largely concerns statically checked implementations, which are either structured via an external domain specific language or an extension to the implementation language. 
+	
+	One considered approach was a ``chained types'' implementation, this would have provided a set of types in Java to construct a larger session. An example of this would have been a ``decision'' type, which took two type parameters, with the signature  \texttt{Decision<S,T>} where supplying S or T would have forced the protocol to take a different path depending on the input. However as displayed in a paper which uses this approach earlier\cite{jespersen2015session}, any reasonably complicated protocol implementation using this appproach has a unruly type signature which is hard to parse and harder to create. As the aim of the project is to create an easily usable ``plug and play'' library to enhance and improve safety and security in Java programs, it is important to avoid obnubilating protocol structure from a reader.
+	
+	
+	\subsection{Graph Traversal}
 	\subsection{Domain Specific Language}
 	Users having the ability to express the structure of complex protocols easily is key to the adoption of the library by a wider user-base. It is paramount that this is made as simple as it possibly can, to improve both usability when creating the protocol structure and comprehension when checking it at a later date. As expressed in the literature review, one such standard approach is the Scribble\cite{honda2011scribbling} domain description language, where users create protocols and then use tools to compile the contents to an implementation usable with their language of choice. In a library sense, however, this is imperfect, it requires an extra layer of knowledge from users outside of the normal language paradigm, it increases the learning curve, potentially putting off new users, and requires some form of parsers and compilation process which could prove difficult to implement in the time constraints of the project.
 	
