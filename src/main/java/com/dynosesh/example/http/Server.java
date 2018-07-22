@@ -42,8 +42,9 @@ public class Server implements Runnable {
   public void run() {
     try {
       Socket socket = new Socket("localhost", port);
-      ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+      objectOutputStream.flush();
+      ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
       streamsInitialised(objectOutputStream, objectInputStream);
     } catch (IOException e) {
       e.printStackTrace();
@@ -57,7 +58,7 @@ public class Server implements Runnable {
       ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
     Sendable sendable = (Sendable) objectInputStream.readObject();
     System.out.println(sendable.getPayload());
-    objectOutputStream.writeObject(new Hello("Hello from the server", "0"));
+    objectOutputStream.writeObject(new Hello("Hello sent from server", "0"));
     if (useEncryption) {
       encryptedPath(objectOutputStream, objectInputStream);
     } else {
@@ -68,14 +69,14 @@ public class Server implements Runnable {
 
   private void encryptedPath(ObjectOutputStream objectOutputStream,
       ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
-    objectOutputStream.writeObject(new Certificate("Certificate from the server",
+    objectOutputStream.writeObject(new Certificate("Certificate sent from server",
         "0"));
     objectOutputStream.writeObject(new ServerKeyExchange("ServerKeyExchange "
-        + "from the server", "0"));
+        + "sent from server", "0"));
     objectOutputStream
-        .writeObject(new CertificateRequest("CertificateRequest from the server",
+        .writeObject(new CertificateRequest("CertificateRequest sent from server",
             "0"));
-    objectOutputStream.writeObject(new HelloDone("HelloDone from the server",
+    objectOutputStream.writeObject(new HelloDone("HelloDone sent from server",
         "0"));
     Sendable sendable = (Sendable) objectInputStream.readObject();
     System.out.println(sendable.getPayload());
@@ -87,7 +88,7 @@ public class Server implements Runnable {
 
   private void unencryptedPath(ObjectOutputStream objectOutputStream,
       ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
-    objectOutputStream.writeObject(new HelloDone("HelloDone from the server", "0"));
+    objectOutputStream.writeObject(new HelloDone("HelloDone sent from server", "0"));
     Sendable sendable = (Sendable) objectInputStream.readObject();
     System.out.println(sendable.getPayload());
   }
@@ -98,8 +99,8 @@ public class Server implements Runnable {
     System.out.println(sendable.getPayload());
     sendable = (Sendable) objectInputStream.readObject();
     System.out.println(sendable.getPayload());
-    objectOutputStream.writeObject(new ChangeCipherSpec("ChangeCipherSpec from the server",
+    objectOutputStream.writeObject(new ChangeCipherSpec("ChangeCipherSpec sent from server",
         "0"));
-    objectOutputStream.writeObject(new Finished("Finished from the server", "0"));
+    objectOutputStream.writeObject(new Finished("Finished sent from server", "0"));
   }
 }

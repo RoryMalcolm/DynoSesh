@@ -36,13 +36,13 @@ public class Runner {
     finalSectionOfTransmission(protocolBuilder);
     Protocol protocol = protocolBuilder
         .build();
-    Thread monitorThread = new Thread(new ProtocolServer(new ProtocolMonitor(protocol)));
-    Thread receiverThread = new Thread(new Client(2050));
-    Thread clientThread = new Thread(new Server(2051, true));
+    ProtocolMonitor monitor = new ProtocolMonitor(protocol);
+    Thread monitorThread = new Thread(new ProtocolServer(monitor));
+    Thread clientThread = new Thread(new Client(2050));
+    Thread serverThread = new Thread(new Server(2051, true));
     monitorThread.start();
-    receiverThread.start();
     clientThread.start();
-    System.out.print(protocol);
+    serverThread.start();
   }
 
   private static void firstSectionOfTransmission(ProtocolBuilder protocolBuilder) {

@@ -38,8 +38,9 @@ public class Client implements Runnable {
   public void run() {
     try {
       Socket socket = new Socket("localhost", port);
-      ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+      objectOutputStream.flush();
+      ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
       streamsInitialised(objectOutputStream, objectInputStream);
     } catch (IOException e) {
       e.printStackTrace();
@@ -91,7 +92,8 @@ public class Client implements Runnable {
     objectOutputStream.writeObject(new ClientKeyExchange("ClientKeyExchange sent "
         + "from client",
         "1"));
-    objectOutputStream.writeObject(new CertificateVerify("Certificate sent from client",
+    objectOutputStream.writeObject(new CertificateVerify("CertificateVerify "
+        + "sent from client",
         "1"));
     objectOutputStream
         .writeObject(
