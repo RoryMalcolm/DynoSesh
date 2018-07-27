@@ -18,7 +18,7 @@ public class SenderClient implements Runnable {
   /**
    * Client for sending information over the socket
    *
-   * @param port The port to send information over
+   * @param port The port toActor send information over
    */
   SenderClient(int port) {
     this.port = port;

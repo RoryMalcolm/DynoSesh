@@ -36,15 +36,15 @@ public class Runner {
         .payload(null)
         .connection()
         .actor("0")
-        .to("1")
+        .toActor("1")
         .connection()
         .actor("0")
-        .to("3")
+        .toActor("3")
         .node()
         .payload(SendableString.class)
         .connection()
         .actor("1")
-        .to("2");
+        .toActor("2");
   }
 
   private static void secondSideOfGraph(ProtocolBuilder protocolBuilder) {
@@ -54,12 +54,12 @@ public class Runner {
         .payload(SendableInteger.class)
         .connection()
         .actor("0")
-        .to("4")
+        .toActor("4")
         .node()
         .payload(SendableInteger.class)
         .connection()
         .actor("1")
-        .to("5")
+        .toActor("5")
         .node()
         .payload(SendableInteger.class);
   }

@@ -18,14 +18,14 @@ public class ReceiverClient implements Runnable {
   /**
    * The client that handles receiving and printing out information
    *
-   * @param port The port to listen on
+   * @param port The port toActor listen on
    */
   ReceiverClient(int port) {
     this.port = port;
   }
 
   /**
-   * Starts the thread to listen over the socket
+   * Starts the thread toActor listen over the socket
    */
   @Override
   public void run() {

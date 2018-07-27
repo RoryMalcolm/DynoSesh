@@ -51,20 +51,20 @@ public class Runner {
           .payload(null)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("1")
+            .toActor("1")
         .node()
           .payload(Hello.class)
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("2")
+            .toActor("2")
         .node()
           .payload(Hello.class)
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("3")
+            .toActor("3")
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("5");
+            .toActor("5");
   }
 
   private static void secondSectionOfTransmission(ProtocolBuilder protocolBuilder) {
@@ -75,53 +75,53 @@ public class Runner {
           .payload(HelloDone.class)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("4")
+            .toActor("4")
         .node()
           .payload(ClientKeyExchange.class)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("12");
+            .toActor("12");
   }
 
   private static void thirdSectionOfTransmission(ProtocolBuilder protocolBuilder) {
-    //Path taken if a key exchange needs to occur, with intermediate steps which add a layer
+    //Path taken if a key exchange needs toActor occur, with intermediate steps which add a layer
     //of security
     protocolBuilder
         .node()
           .payload(Certificate.class)
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("6")
+            .toActor("6")
         .node()
           .payload(ServerKeyExchange.class)
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("7")
+            .toActor("7")
         .node()
           .payload(CertificateRequest.class)
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("8")
+            .toActor("8")
         .node()
           .payload(HelloDone.class)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("9")
+            .toActor("9")
         .node()
           .payload(Certificate.class)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("10")
+            .toActor("10")
         .node()
           .payload(ClientKeyExchange.class)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("11")
+            .toActor("11")
         .node()
           .payload(CertificateVerify.class)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("12");
+            .toActor("12");
   }
 
   private static void finalSectionOfTransmission(ProtocolBuilder protocolBuilder) {
@@ -131,17 +131,17 @@ public class Runner {
           .payload(ChangeCipherSpec.class)
           .connection()
             .actor(CLIENT_ADDRESS)
-            .to("13")
+            .toActor("13")
         .node()
           .payload(Finished.class)
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("14")
+            .toActor("14")
         .node()
           .payload(ChangeCipherSpec.class)
           .connection()
             .actor(SERVER_ADDRESS)
-            .to("15")
+            .toActor("15")
         .node()
           .payload(Finished.class);
   }

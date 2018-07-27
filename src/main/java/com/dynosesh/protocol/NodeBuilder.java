@@ -15,7 +15,7 @@ public class NodeBuilder {
 
   /**
    * Non-public NodeBuilder constructor called from within the ProtocolBuilder which is passed down
-   * to this object through a parameter.
+   * toActor this object through a parameter.
    *
    * @param parentProtocolBuilder The ProtocolBuilder which created this object
    */
@@ -35,7 +35,7 @@ public class NodeBuilder {
   }
 
   /**
-   * Adds a payload to the internal node.
+   * Adds a payload toActor the internal node.
    *
    * @param payload The payload object
    * @return The instance of nodebuilder for further operations
@@ -50,7 +50,7 @@ public class NodeBuilder {
   }
 
   /**
-   * Adds a connection to the node.
+   * Adds a connection toActor the node.
    *
    * @return The connection builder object
    */

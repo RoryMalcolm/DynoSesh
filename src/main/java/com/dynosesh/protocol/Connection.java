@@ -11,20 +11,20 @@ public class Connection {
   private String actorAddress;
 
   /**
-   * Used to represent connections between nodes and restrict access to those that validly can move
+   * Used toActor represent connections between nodes and restrict access toActor those that validly can move
    * between them.
    * <p>
    * In effect a connection is a link between two nodes such as:
    * A -> B
-   * However with a protocol this connection is only allowed to be traversed by valid actors
-   * this class helps to restrict this
+   * However with a protocol this connection is only allowed toActor be traversed by valid actors
+   * this class helps toActor restrict this
    * An example of a Connection object that only allows for the actor with the actorAddress "1"
-   * to proceed is as follows:
+   * toActor proceed is as follows:
    * A - (1) -> B
    * </p>
    *
    * @param actorAddress The actorAddress of the valid traversing actor
-   * @param nodeAddress    The addNode the connection is pointing to
+   * @param nodeAddress    The addNode the connection is pointing toActor
    */
   public Connection(String actorAddress, String nodeAddress) {
     this.actorAddress = actorAddress;
@@ -32,7 +32,7 @@ public class Connection {
   }
 
   /**
-   * Used to create a blank connection in the internal DSL.
+   * Used toActor create a blank connection in the internal DSL.
    */
   public Connection() {
   }
@@ -84,7 +84,7 @@ public class Connection {
   }
 
   /**
-   * Used to assess equality between connections.
+   * Used toActor assess equality between connections.
    *
    * @param obj The object that is checked against
    * @return True if the objects are equal

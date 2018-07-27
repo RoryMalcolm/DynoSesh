@@ -13,7 +13,7 @@ public class ProtocolBuilder {
   private boolean hasStart = false;
 
   /**
-   * Used to build a valid protocol graph.
+   * Used toActor build a valid protocol graph.
    * <p>
    * Ensures that the protocol graph has a starting addNode somewhere within it, will except if this
    * is not the case
@@ -24,7 +24,7 @@ public class ProtocolBuilder {
   }
 
   /**
-   * Adds a node to the protocol.
+   * Adds a node toActor the protocol.
    *
    * @param node The node for adding
    */

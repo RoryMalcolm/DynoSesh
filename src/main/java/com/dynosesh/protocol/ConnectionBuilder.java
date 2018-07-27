@@ -47,12 +47,12 @@ public class ConnectionBuilder {
 
   /**
    * The finalisation step of the connection aspect of the DSL - returns the parent nodebuilder
-   * after setting the node that it is connecting to.
+   * after setting the node that it is connecting toActor.
    *
-   * @param nodeKey The node to connect to
+   * @param nodeKey The node toActor connect toActor
    * @return The parent nodebuilder
    */
-  public NodeBuilder to(String nodeKey) {
+  public NodeBuilder toActor(String nodeKey) {
     this.connection.setNodeAddress(nodeKey);
     if (Objects.equals(this.connection.getActorAddress(), "")) {
       throw new IllegalArgumentException("No actor address defined");

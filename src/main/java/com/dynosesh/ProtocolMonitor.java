@@ -18,11 +18,11 @@ public class ProtocolMonitor {
   private int actorCount;
 
   /**
-   * Used to ensure that communication complies to the protocol implementation.
+   * Used toActor ensure that communication complies toActor the protocol implementation.
    *
    * <p>
    * Allows for communication over a protocol and throws an error if communication does not comply
-   * to the standard.
+   * toActor the standard.
    * </p>
    *
    * @param protocol The protocol that will be checked against
@@ -34,7 +34,7 @@ public class ProtocolMonitor {
   }
 
   /**
-   * Adds and actor to the protocol's dictionary.
+   * Adds and actor toActor the protocol's dictionary.
    *
    * @param actor The actor reference
    */
@@ -54,11 +54,11 @@ public class ProtocolMonitor {
   }
 
   /**
-   * Sends a message, and ensures it complies to the protocol.
+   * Sends a message, and ensures it complies toActor the protocol.
    *
    * @param senderAddress The address of the actor sending the request
-   * @param receiverAddress The address of the actor to send the message to
-   * @param payload The message to send to an actor
+   * @param receiverAddress The address of the actor toActor send the message toActor
+   * @param payload The message toActor send toActor an actor
    * @throws InvalidSessionException Thrown when there is a session type error
    */
   public void send(String senderAddress,
