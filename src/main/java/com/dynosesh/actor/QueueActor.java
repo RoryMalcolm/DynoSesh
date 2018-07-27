@@ -15,7 +15,7 @@ public class QueueActor implements Actor {
    * Actor constructor
    *
    * <p>
-   * Used toActor send and receive tasks across the protocol monitor for processing
+   * Used to send and receive tasks across the protocol monitor for processing
    * </p>
    */
   public QueueActor() {
@@ -23,9 +23,9 @@ public class QueueActor implements Actor {
   }
 
   /**
-   * Adds a task toActor the actor's task queue
+   * Adds a task to the toActor's task queue
    *
-   * @param sendable The task for adding toActor the queue
+   * @param sendable The task for adding to the queue
    */
   @Override
   public void sendTask(Sendable sendable) {
@@ -33,7 +33,7 @@ public class QueueActor implements Actor {
   }
 
   /**
-   * Gets the task on the top of the actor's task queue
+   * Gets the task on the top of the toActor's task queue
    *
    * @return The task at the top of the queue
    */

@@ -13,9 +13,9 @@ public abstract class Sendable<T> implements Serializable {
   private String target;
 
   /**
-   * Used toActor facilitate communication over a protocol.
+   * Used to facilitate communication over a protocol.
    * <p>
-   * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+   * Contains a payload, the type of which is checked to ensure it complies to the protocol
    * implementation.
    * </p>
    *
@@ -27,9 +27,9 @@ public abstract class Sendable<T> implements Serializable {
   }
 
   /**
-   * Used toActor facilitate communication over a protocol.
+   * Used to facilitate communication over a protocol.
    * <p>
-   * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+   * Contains a payload, the type of which is checked to ensure it complies to the protocol
    * implementation.
    * </p>
    *
@@ -51,7 +51,7 @@ public abstract class Sendable<T> implements Serializable {
   }
 
   /**
-   * Gets the target toActor send the Sendable toActor
+   * Gets the target to send the Sendable to
    *
    * @return The target
    */

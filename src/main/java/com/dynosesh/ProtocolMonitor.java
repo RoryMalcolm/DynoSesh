@@ -18,11 +18,11 @@ public class ProtocolMonitor {
   private int actorCount;
 
   /**
-   * Used toActor ensure that communication complies toActor the protocol implementation.
+   * Used to ensure that communication complies to the protocol implementation.
    *
    * <p>
    * Allows for communication over a protocol and throws an error if communication does not comply
-   * toActor the standard.
+   * to the standard.
    * </p>
    *
    * @param protocol The protocol that will be checked against
@@ -34,9 +34,9 @@ public class ProtocolMonitor {
   }
 
   /**
-   * Adds and actor toActor the protocol's dictionary.
+   * Adds and toActor to the protocol's dictionary.
    *
-   * @param actor The actor reference
+   * @param actor The toActor reference
    */
   public void addActor(Actor actor) {
     this.actorMap.put(String.valueOf(actorCount), actor);
@@ -44,21 +44,21 @@ public class ProtocolMonitor {
   }
 
   /**
-   * Returns the actor with the corresponding key.
+   * Returns the toActor with the corresponding key.
    *
    * @param key The key for searching the map with
-   * @return The actor object
+   * @return The toActor object
    */
   public Actor getActor(String key) {
     return this.actorMap.get(key);
   }
 
   /**
-   * Sends a message, and ensures it complies toActor the protocol.
+   * Sends a message, and ensures it complies to the protocol.
    *
-   * @param senderAddress The address of the actor sending the request
-   * @param receiverAddress The address of the actor toActor send the message toActor
-   * @param payload The message toActor send toActor an actor
+   * @param senderAddress The address of the toActor sending the request
+   * @param receiverAddress The address of the toActor to send the message to
+   * @param payload The message to send to an toActor
    * @throws InvalidSessionException Thrown when there is a session type error
    */
   public void send(String senderAddress,

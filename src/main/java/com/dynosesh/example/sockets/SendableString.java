@@ -11,9 +11,9 @@ import java.io.Serializable;
 class SendableString extends Sendable implements Serializable {
 
   /**
-   * Used toActor facilitate communication over a protocol.
+   * Used to facilitate communication over a protocol.
    * <p>
-   * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+   * Contains a payload, the type of which is checked to ensure it complies to the protocol
    * implementation.
    * </p>
    *

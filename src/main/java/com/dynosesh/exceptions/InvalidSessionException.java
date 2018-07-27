@@ -10,11 +10,11 @@ public class InvalidSessionException extends Exception {
    * Thrown when protocol communication does not match the expected standard.
    *
    * <p>
-   * When a session type error occurs, this exception is used toActor ensure that the system
+   * When a session type error occurs, this exception is used to ensure that the system
    * cannot progress further.
    * </p>
    *
-   * @param message The message toActor return in the exception
+   * @param message The message to return in the exception
    */
   public InvalidSessionException(String message) {
     super(message);

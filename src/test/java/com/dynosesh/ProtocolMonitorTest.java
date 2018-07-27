@@ -56,9 +56,9 @@ class ProtocolMonitorTest {
     class WrongType extends Sendable {
 
       /**
-       * Used toActor facilitate communication over a protocol.
+       * Used to facilitate communication over a protocol.
        * <p>
-       * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
        * implementation.
        * </p>
        *
@@ -94,9 +94,9 @@ class ProtocolMonitorTest {
     class HttpRequest extends Sendable {
 
       /**
-       * Used toActor facilitate communication over a protocol.
+       * Used to facilitate communication over a protocol.
        * <p>
-       * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
        * implementation.
        * </p>
        *
@@ -109,9 +109,9 @@ class ProtocolMonitorTest {
     class HttpResponse extends Sendable {
 
       /**
-       * Used toActor facilitate communication over a protocol.
+       * Used to facilitate communication over a protocol.
        * <p>
-       * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
        * implementation.
        * </p>
        *
@@ -182,9 +182,9 @@ class ProtocolMonitorTest {
     class ChoiceOne extends Sendable {
 
       /**
-       * Used toActor facilitate communication over a protocol.
+       * Used to facilitate communication over a protocol.
        * <p>
-       * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
        * implementation.
        * </p>
        *
@@ -198,9 +198,9 @@ class ProtocolMonitorTest {
     class ChoiceTwo extends Sendable {
 
       /**
-       * Used toActor facilitate communication over a protocol.
+       * Used to facilitate communication over a protocol.
        * <p>
-       * Contains a payload, the type of which is checked toActor ensure it complies toActor the protocol
+       * Contains a payload, the type of which is checked to ensure it complies to the protocol
        * implementation.
        * </p>
        *

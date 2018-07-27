@@ -14,7 +14,7 @@ public class ProtocolServer implements Runnable {
   /**
    * ProtocolServer that controls communication, ensuring it complies with the protocol
    *
-   * @param monitor The protocol monitor for the server toActor check against
+   * @param monitor The protocol monitor for the server to check against
    */
   ProtocolServer(ProtocolMonitor monitor) {
     this.monitor = monitor;

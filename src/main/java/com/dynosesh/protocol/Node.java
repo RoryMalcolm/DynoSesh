@@ -14,7 +14,7 @@ public class Node {
   private boolean start;
 
   /**
-   * The class used toActor represent nodes within the finite state machine.
+   * The class used to represent nodes within the finite state machine.
    * <p>
    * All correct actions are maintained within the finite state machine represented by nodes on
    * the graph
@@ -35,7 +35,7 @@ public class Node {
   /**
    * Adds a connection the the Node.
    *
-   * @param connection The connection toActor add toActor the addNode
+   * @param connection The connection to add to the addNode
    */
   public void addConnection(Connection connection) {
     for (Connection connectionCheck : this.connections) {
@@ -74,7 +74,7 @@ public class Node {
   }
 
   /**
-   * Adds a value toActor the node - mostly used in the internal DSL construction phase.
+   * Adds a value to the node - mostly used in the internal DSL construction phase.
    *
    * @param value The value of the node
    */

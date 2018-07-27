@@ -13,7 +13,7 @@ public class ProtocolGraph {
   private Node startNode;
 
   /**
-   * The data structure used toActor contain the inner graph object.
+   * The data structure used to contain the inner graph object.
    */
   ProtocolGraph() {
     nodes = new ArrayList<>();
@@ -33,9 +33,9 @@ public class ProtocolGraph {
   }
 
   /**
-   * Adds a node toActor the graph.
+   * Adds a node to the graph.
    *
-   * @param node The node for adding toActor the graph
+   * @param node The node for adding to the graph
    */
   void addNode(Node node) {
     if (node.isStart()) {
@@ -53,7 +53,7 @@ public class ProtocolGraph {
   }
 
   /**
-   * Returns an ArrayList of Connection objects that are connected toActor the inputted Node.
+   * Returns an ArrayList of Connection objects that are connected to the inputted Node.
    *
    * @param currentNode The node which connections need checked against
    * @return An ArrayList of all the connections

@@ -11,10 +11,10 @@ import java.io.Serializable;
 class ErrorString extends Sendable implements Serializable {
 
   /**
-   * Used toActor prove that errors occur when an invalid sendable is sent over the protocol
+   * Used to prove that errors occur when an invalid sendable is sent over the protocol
    *
    * @param sends Sends a string over the network
-   * @param target The target toActor send the sendable towards
+   * @param target The target to send the sendable towards
    */
   ErrorString(String sends, String target) {
     super(sends, target);

@@ -26,7 +26,7 @@ public class Server implements Runnable {
   /**
    * Client for sending information over the socket
    *
-   * @param port The port toActor send information over
+   * @param port The port to send information over
    * @param useEncryption Specifies whether encryption should be used by the server
    */
   Server(int port, boolean useEncryption) {

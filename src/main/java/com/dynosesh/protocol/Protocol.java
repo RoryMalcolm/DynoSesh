@@ -16,7 +16,7 @@ public class Protocol {
   /**
    * The default constructor for the Protocol class invoked by the build method in ProtocolBuilder
    * <p>
-   * Used toActor traverse a graph representation of a protocol finite state machine
+   * Used to traverse a graph representation of a protocol finite state machine
    * </p>
    */
   Protocol() {
@@ -25,7 +25,7 @@ public class Protocol {
   }
 
   /**
-   * Adds a layer toActor the protocol.
+   * Adds a layer to the protocol.
    *
    * @param forAdding The layer for adding.
    */
@@ -56,7 +56,7 @@ public class Protocol {
   }
 
   /**
-   * Checks toActor see if it there is a valid state that can be moved toActor, and does so if possible.
+   * Checks to see if it there is a valid state that can be moved to, and does so if possible.
    *
    * @param payload The desired next state
    * @return True if the graph traversal was possible
@@ -73,9 +73,9 @@ public class Protocol {
   }
 
   /**
-   * Gets the nodes that connect toActor the current node
+   * Gets the nodes that connect to the current node
    *
-   * @return The nodes that connect toActor the current node
+   * @return The nodes that connect to the current node
    */
   private ArrayList<Connection> getConnectingNodes() {
     return this.protocol.getConnections(currentNode);
