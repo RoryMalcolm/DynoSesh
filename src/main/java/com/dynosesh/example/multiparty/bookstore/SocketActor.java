@@ -1,4 +1,4 @@
-package com.dynosesh.example.sockets;
+package com.dynosesh.example.multiparty.bookstore;
 
 import com.dynosesh.ProtocolMonitor;
 import com.dynosesh.Sendable;
@@ -38,6 +38,8 @@ public class SocketActor implements Actor, Runnable {
       this.address = address;
       ServerSocket webSocket = new ServerSocket(port);
       client = webSocket.accept();
+      this.objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+      this.objectOutputStream.flush();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -54,6 +56,7 @@ public class SocketActor implements Actor, Runnable {
       if (this.objectOutputStream == null) {
         OutputStream outputStream = client.getOutputStream();
         this.objectOutputStream = new ObjectOutputStream(outputStream);
+        this.objectOutputStream.flush();
       }
       this.objectOutputStream.writeObject(sendable);
     } catch (IOException e) {
@@ -95,5 +98,6 @@ public class SocketActor implements Actor, Runnable {
         System.exit(1);
       }
     }
+    System.exit(0);
   }
 }

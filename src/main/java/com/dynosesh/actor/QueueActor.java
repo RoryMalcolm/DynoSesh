@@ -23,7 +23,7 @@ public class QueueActor implements Actor {
   }
 
   /**
-   * Adds a task to the actor's task queue
+   * Adds a task to the toActor's task queue
    *
    * @param sendable The task for adding to the queue
    */
@@ -33,7 +33,7 @@ public class QueueActor implements Actor {
   }
 
   /**
-   * Gets the task on the top of the actor's task queue
+   * Gets the task on the top of the toActor's task queue
    *
    * @return The task at the top of the queue
    */

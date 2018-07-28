@@ -34,9 +34,9 @@ public class ProtocolMonitor {
   }
 
   /**
-   * Adds and actor to the protocol's dictionary.
+   * Adds and toActor to the protocol's dictionary.
    *
-   * @param actor The actor reference
+   * @param actor The toActor reference
    */
   public void addActor(Actor actor) {
     this.actorMap.put(String.valueOf(actorCount), actor);
@@ -44,10 +44,10 @@ public class ProtocolMonitor {
   }
 
   /**
-   * Returns the actor with the corresponding key.
+   * Returns the toActor with the corresponding key.
    *
    * @param key The key for searching the map with
-   * @return The actor object
+   * @return The toActor object
    */
   public Actor getActor(String key) {
     return this.actorMap.get(key);
@@ -56,17 +56,17 @@ public class ProtocolMonitor {
   /**
    * Sends a message, and ensures it complies to the protocol.
    *
-   * @param senderAddress The address of the actor sending the request
-   * @param receiverAddress The address of the actor to send the message to
-   * @param payload The message to send to an actor
+   * @param receiverAddress The address of the toActor to send the message to
+   * @param senderAddress The address of the toActor sending the request
+   * @param payload The message to send to an toActor
    * @throws InvalidSessionException Thrown when there is a session type error
    */
-  public void send(String senderAddress,
-      String receiverAddress, Sendable payload) throws InvalidSessionException {
+  public void send(String receiverAddress, String senderAddress,
+      Sendable payload) throws InvalidSessionException {
     if (this.actorMap.size() == 0) {
       throw new IllegalArgumentException("The protocol does not currently contain actors");
     }
-    if (this.protocol.checkStatusAndProgress(senderAddress, payload)) {
+    if (this.protocol.checkStatusAndProgress(receiverAddress, senderAddress, payload)) {
       try {
         this.actorMap.get(receiverAddress).sendTask(payload);
       } catch (NullPointerException e) {

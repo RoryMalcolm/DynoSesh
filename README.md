@@ -13,19 +13,21 @@ Protocol protocol = protocolBuilder
       .node()
         .payload(null)
         .connection()
-          .actor("0")
+          .fromActor("0")
+          .toActor("1")
           .to("1")
       .node()
         .payload(TestClass.class)
         .connection()
-          .actor("0")
+          .fromActor("0")
+          .toActor("1")
           .to("1")
       .build();
 ProtocolMonitor monitor = new ProtocolMonitor(protocol);
 monitor.addActor(new QueueActor());
 monitor.addActor(new QueueActor());
 
-monitor.send("0", "1", new TestClass("Hello!"));
+monitor.send("1", "0", new TestClass("Hello!"));
 ```
 
 ## Examples

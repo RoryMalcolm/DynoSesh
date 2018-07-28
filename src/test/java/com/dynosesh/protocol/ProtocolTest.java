@@ -12,30 +12,31 @@ import org.junit.jupiter.api.Test;
  */
 class ProtocolTest {
 
+  private Protocol protocol;
+
   @BeforeEach
   void setUp() {
     ProtocolBuilder protocolBuilder = new ProtocolBuilder();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
-    startNode.addConnection(new Connection("1", "1"));
-    mediumNode.addConnection(new Connection("1", "2"));
+    startNode.addConnection(new Connection("1", "0", "1"));
+    mediumNode.addConnection(new Connection("1",
+        "0", "1"));
     protocolBuilder.addNode(startNode);
     protocolBuilder.addNode(mediumNode);
     protocolBuilder.addNode(finishNode);
     protocol = protocolBuilder.build();
   }
 
-  private Protocol protocol;
-
   @Test
   void testLayerInstanceOf() {
     TestLayer testLayer = new TestLayer("Hello, world!");
-    assertTrue(protocol.checkStatusAndProgress("1",
+    assertTrue(protocol.checkStatusAndProgress("1", "0",
         testLayer));
-    assertTrue(protocol.checkStatusAndProgress("1",
+    assertTrue(protocol.checkStatusAndProgress("1", "0",
         testLayer));
-    assertFalse(protocol.checkStatusAndProgress("1",
+    assertFalse(protocol.checkStatusAndProgress("0", "1",
         testLayer));
   }
 

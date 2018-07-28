@@ -8,33 +8,33 @@ package com.dynosesh.protocol;
 public class Connection {
 
   private String nodeAddress;
-  private String actorAddress;
+  private String toActorAddress;
+  private String fromActorAddress;
 
   /**
    * Used to represent connections between nodes and restrict access to those that validly can move
    * between them.
    * <p>
-   * In effect a connection is a link between two nodes such as:
-   * A -> B
-   * However with a protocol this connection is only allowed to be traversed by valid actors
-   * this class helps to restrict this
-   * An example of a Connection object that only allows for the actor with the actorAddress "1"
-   * to proceed is as follows:
-   * A - (1) -> B
+   * In effect a connection is a link between two nodes such as: A -> B However with a protocol this
+   * connection is only allowed to be traversed by valid actors this class helps to restrict this An
+   * example of a Connection object that only allows for the toActor with the toActorAddress "1" to
+   * proceed is as follows: A - (1) -> B
    * </p>
    *
-   * @param actorAddress The actorAddress of the valid traversing actor
-   * @param nodeAddress    The addNode the connection is pointing to
+   * @param toActorAddress The toActorAddress of the valid traversing toActor
+   * @param nodeAddress The addNode the connection is pointing to
+   * @param fromActorAddress The actor address the connection is coming from
    */
-  public Connection(String actorAddress, String nodeAddress) {
-    this.actorAddress = actorAddress;
+  public Connection(String toActorAddress, String fromActorAddress, String nodeAddress) {
+    this.toActorAddress = toActorAddress;
     this.nodeAddress = nodeAddress;
+    this.fromActorAddress = fromActorAddress;
   }
 
   /**
    * Used to create a blank connection in the internal DSL.
    */
-  public Connection() {
+  Connection() {
   }
 
   /**
@@ -42,7 +42,7 @@ public class Connection {
    *
    * @param nodeAddress The nodeAddress for the connection
    */
-  public void setNodeAddress(String nodeAddress) {
+  void setNodeAddress(String nodeAddress) {
     this.nodeAddress = nodeAddress;
   }
 
@@ -56,31 +56,51 @@ public class Connection {
   }
 
   /**
-   * Gets the actorAddress of the actor that can validly traverse the connection.
+   * Gets the toActorAddress of the toActor that can validly traverse the connection.
    *
-   * @return The actorAddress of the actor
+   * @return The toActorAddress of the toActor
    */
-  public String getActorAddress() {
-    return actorAddress;
+  String getToActorAddress() {
+    return toActorAddress;
   }
 
   /**
-   * Sets the actorAddress of a blank connection - mostly used in the DSL.
+   * Sets the toActorAddress of a blank connection - mostly used in the DSL.
    *
-   * @param actorAddress The actorAddress in the connection
+   * @param toActorAddress The toActorAddress in the connection
    */
-  public void setActorAddress(String actorAddress) {
-    this.actorAddress = actorAddress;
+  void setToActorAddress(String toActorAddress) {
+    this.toActorAddress = toActorAddress;
   }
+
+  /**
+   * Gets the toActorAddress of the toActor that can validly traverse the connection.
+   *
+   * @return The toActorAddress of the toActor
+   */
+  public String getFromActorAddress() {
+    return fromActorAddress;
+  }
+
+  /**
+   * Sets the toActorAddress of a blank connection - mostly used in the DSL.
+   *
+   * @param fromActorAddress The toActorAddress in the connection
+   */
+  void setFromActorAddress(String fromActorAddress) {
+    this.fromActorAddress = fromActorAddress;
+  }
+
 
   /**
    * Returns true if the sender can make the connection.
    *
-   * @param sender The sender's actorAddress
+   * @param senderAddress The sender's address
+   * @param receiverAddress The receivers address
    * @return True if the sender can make the connection
    */
-  public boolean hasPermission(String sender) {
-    return actorAddress.equals(sender);
+  boolean hasPermission(String senderAddress, String receiverAddress) {
+    return toActorAddress.equals(receiverAddress) && fromActorAddress.equals(senderAddress);
   }
 
   /**
@@ -93,8 +113,8 @@ public class Connection {
   public boolean equals(Object obj) {
     try {
       Connection parsed = (Connection) obj;
-      return this.actorAddress.equals(parsed.actorAddress) && this.nodeAddress
-          .equals(parsed.nodeAddress);
+      return this.toActorAddress.equals(parsed.toActorAddress) && this.nodeAddress
+          .equals(parsed.nodeAddress) && this.fromActorAddress.equals(parsed.fromActorAddress);
     } catch (Exception e) {
       return false;
     }

@@ -25,8 +25,8 @@ class ProtocolMonitorTest {
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
     Node finishNode = new Node(TestLayer.class);
-    startNode.addConnection(new Connection("1", "1"));
-    mediumNode.addConnection(new Connection("1", "2"));
+    startNode.addConnection(new Connection("0", "1", "1"));
+    mediumNode.addConnection(new Connection("0", "1", "2"));
     protocolBuilder.addNode(startNode);
     protocolBuilder.addNode(mediumNode);
     protocolBuilder.addNode(finishNode);
@@ -40,10 +40,10 @@ class ProtocolMonitorTest {
   @Test
   void normalExecution() {
     try {
-      protocolMonitor.send("1",
-          "0", new TestLayer("Hello world!"));
-      protocolMonitor.send("1",
-          "0", new TestLayer("Alright mate!"));
+      protocolMonitor.send("0", "1",
+          new TestLayer("Hello world!"));
+      protocolMonitor.send("0", "1",
+          new TestLayer("Alright mate!"));
     } catch (InvalidSessionException e) {
       e.printStackTrace();
       fail("Exception thrown");
@@ -69,8 +69,8 @@ class ProtocolMonitorTest {
       }
     }
     try {
-      protocolMonitor.send("0",
-          "1", new WrongType("Should Fail"));
+      protocolMonitor.send("1", "0",
+          new WrongType("Should Fail"));
     } catch (InvalidSessionException e) {
       didThrow = true;
     }
@@ -81,8 +81,8 @@ class ProtocolMonitorTest {
   void failingExecutionWrongAddress() {
     boolean didThrow = false;
     try {
-      protocolMonitor.send("0",
-          "2", new TestLayer("Hello world!"));
+      protocolMonitor.send("2", "0",
+          new TestLayer("Hello world!"));
     } catch (InvalidSessionException e) {
       didThrow = true;
     }
@@ -126,8 +126,8 @@ class ProtocolMonitorTest {
     Node startNode = new Node(null);
     Node mediumNode = new Node(HttpRequest.class);
     Node finishNode = new Node(HttpResponse.class);
-    startNode.addConnection(new Connection("0", "1"));
-    mediumNode.addConnection(new Connection("1", "2"));
+    startNode.addConnection(new Connection("0", "1", "1"));
+    mediumNode.addConnection(new Connection("1", "0", "2"));
     protocolBuilder.addNode(startNode);
     protocolBuilder.addNode(mediumNode);
     protocolBuilder.addNode(finishNode);
@@ -136,10 +136,10 @@ class ProtocolMonitorTest {
       protocolMonitor.addActor(new QueueActor());
     }
     try {
-      protocolMonitor.send("0",
-          "1", new HttpRequest("GET"));
-      protocolMonitor.send("1",
-          "0", new HttpResponse("Payload"));
+      protocolMonitor.send("0", "1",
+          new HttpRequest("GET"));
+      protocolMonitor.send("1", "0",
+          new HttpResponse("Payload"));
 
     } catch (InvalidSessionException e) {
       e.printStackTrace();
@@ -152,8 +152,8 @@ class ProtocolMonitorTest {
     ProtocolBuilder protocolBuilder = new ProtocolBuilder();
     Node startNode = new Node(null);
     Node mediumNode = new Node(TestLayer.class);
-    startNode.addConnection(new Connection("1", "1"));
-    mediumNode.addConnection(new Connection("1", "1"));
+    startNode.addConnection(new Connection("0", "1", "1"));
+    mediumNode.addConnection(new Connection("0", "1", "1"));
     protocolBuilder.addNode(startNode);
     protocolBuilder.addNode(mediumNode);
     Protocol protocol = protocolBuilder.build();
@@ -162,15 +162,15 @@ class ProtocolMonitorTest {
       protocolMonitor.addActor(new QueueActor());
     }
     try {
-      protocolMonitor.send("1",
-          "0", new TestLayer("Hello world!"));
+      protocolMonitor.send("0", "1",
+          new TestLayer("Hello world!"));
     } catch (InvalidSessionException e) {
       fail("Errored on choice");
     }
     for (int i = 0; i < 1000; i++) {
       try {
-        protocolMonitor.send("1",
-            "0", new TestLayer("Hello world!"));
+        protocolMonitor.send("0", "1",
+            new TestLayer("Hello world!"));
       } catch (InvalidSessionException e) {
         fail("Errored on choice");
       }
@@ -215,9 +215,9 @@ class ProtocolMonitorTest {
     Node mediumNode = new Node(TestLayer.class);
     Node finalChoiceOne = new Node(ChoiceOne.class);
     Node finalChoiceTwo = new Node(ChoiceTwo.class);
-    startNode.addConnection(new Connection("1", "1"));
-    mediumNode.addConnection(new Connection("1", "2"));
-    mediumNode.addConnection(new Connection("1", "3"));
+    startNode.addConnection(new Connection("1", "0", "1"));
+    mediumNode.addConnection(new Connection("1", "0", "2"));
+    mediumNode.addConnection(new Connection("1", "0", "3"));
     protocolBuilder.addNode(startNode);
     protocolBuilder.addNode(mediumNode);
     protocolBuilder.addNode(finalChoiceOne);
@@ -228,10 +228,10 @@ class ProtocolMonitorTest {
       protocolMonitor.addActor(new QueueActor());
     }
     try {
-      protocolMonitor.send("1",
-          "0", new TestLayer("Hello world!"));
-      protocolMonitor.send("1",
-          "0", new ChoiceOne("ChoiceOne"));
+      protocolMonitor.send("1", "0",
+          new TestLayer("Hello world!"));
+      protocolMonitor.send("1", "0",
+          new ChoiceOne("ChoiceOne"));
     } catch (InvalidSessionException e) {
       fail("Errored on choice");
     }
@@ -240,9 +240,9 @@ class ProtocolMonitorTest {
     mediumNode = new Node(TestLayer.class);
     finalChoiceOne = new Node(ChoiceOne.class);
     finalChoiceTwo = new Node(ChoiceTwo.class);
-    startNode.addConnection(new Connection("1", "1"));
-    mediumNode.addConnection(new Connection("1", "2"));
-    mediumNode.addConnection(new Connection("1", "3"));
+    startNode.addConnection(new Connection("1", "0", "1"));
+    mediumNode.addConnection(new Connection("1", "0", "2"));
+    mediumNode.addConnection(new Connection("1", "0", "3"));
     protocolBuilder.addNode(startNode);
     protocolBuilder.addNode(mediumNode);
     protocolBuilder.addNode(finalChoiceOne);
@@ -253,10 +253,10 @@ class ProtocolMonitorTest {
       protocolMonitor.addActor(new QueueActor());
     }
     try {
-      protocolMonitor.send("1",
-          "0", new TestLayer("Hello world!"));
-      protocolMonitor.send("1",
-          "0", new ChoiceTwo("ChoiceTwo"));
+      protocolMonitor.send("1", "0",
+          new TestLayer("Hello world!"));
+      protocolMonitor.send("1", "0",
+          new ChoiceTwo("ChoiceTwo"));
     } catch (InvalidSessionException e) {
       fail("Errored on choice");
     }

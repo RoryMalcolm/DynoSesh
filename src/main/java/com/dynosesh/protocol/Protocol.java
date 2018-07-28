@@ -61,10 +61,11 @@ public class Protocol {
    * @param payload The desired next state
    * @return True if the graph traversal was possible
    */
-  public boolean checkStatusAndProgress(String senderAddress, Sendable payload) {
+  public boolean checkStatusAndProgress(String receiverAddress, String senderAddress,
+      Sendable payload) {
     for (Connection connection : getConnectingNodes()) {
       if (connection.getNode().getValue() == payload.getClass()
-          && connection.hasPermission(senderAddress)) {
+          && connection.hasPermission(senderAddress, receiverAddress)) {
         currentNode = connection.getNode();
         return true;
       }

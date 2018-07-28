@@ -35,16 +35,26 @@ public class ConnectionBuilder {
   }
 
   /**
-   * Defines the actor for the connection contained within the object
+   * Defines the address the connection is going to
    *
-   * @param actorAddress The actor's address
+   * @param toActorAddress The actor the message is going to
    * @return The current object for chaining methods
    */
-  public ConnectionBuilder actor(String actorAddress) {
-    this.connection.setActorAddress(actorAddress);
+  public ConnectionBuilder toActor(String toActorAddress) {
+    this.connection.setToActorAddress(toActorAddress);
     return this;
   }
 
+  /**
+   * Defines the address the connection is coming from
+   *
+   * @param fromActorAddress The actor the message is coming from
+   * @return The current object for chaining methods
+   */
+  public ConnectionBuilder fromActor(String fromActorAddress) {
+    this.connection.setFromActorAddress(fromActorAddress);
+    return this;
+  }
   /**
    * The finalisation step of the connection aspect of the DSL - returns the parent nodebuilder
    * after setting the node that it is connecting to.
@@ -54,8 +64,8 @@ public class ConnectionBuilder {
    */
   public NodeBuilder to(String nodeKey) {
     this.connection.setNodeAddress(nodeKey);
-    if (Objects.equals(this.connection.getActorAddress(), "")) {
-      throw new IllegalArgumentException("No actor address defined");
+    if (Objects.equals(this.connection.getToActorAddress(), "")) {
+      throw new IllegalArgumentException("No toActor address defined");
     }
     return this.nodeBuilder;
   }

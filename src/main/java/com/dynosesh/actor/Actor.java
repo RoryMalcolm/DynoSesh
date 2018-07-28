@@ -6,16 +6,16 @@ import com.dynosesh.exceptions.InvalidSessionException;
 public interface Actor {
 
   /**
-   * Sends a task to the actor specified
+   * Sends a task to the toActor specified
    *
-   * @param sendable The task to send to the actor
+   * @param sendable The task to send to the toActor
    */
   void sendTask(Sendable sendable);
 
   /**
-   * Receives a task from the actor specified
+   * Receives a task from the toActor specified
    *
-   * @return The task from the actor
+   * @return The task from the toActor
    */
   Sendable receiveTask() throws InvalidSessionException;
 }
