@@ -34,7 +34,7 @@ public class Connection {
   /**
    * Used to create a blank connection in the internal DSL.
    */
-  public Connection() {
+  Connection() {
   }
 
   /**
@@ -42,7 +42,7 @@ public class Connection {
    *
    * @param nodeAddress The nodeAddress for the connection
    */
-  public void setNodeAddress(String nodeAddress) {
+  void setNodeAddress(String nodeAddress) {
     this.nodeAddress = nodeAddress;
   }
 
@@ -60,7 +60,7 @@ public class Connection {
    *
    * @return The toActorAddress of the toActor
    */
-  public String getToActorAddress() {
+  String getToActorAddress() {
     return toActorAddress;
   }
 
@@ -69,7 +69,7 @@ public class Connection {
    *
    * @param toActorAddress The toActorAddress in the connection
    */
-  public void setToActorAddress(String toActorAddress) {
+  void setToActorAddress(String toActorAddress) {
     this.toActorAddress = toActorAddress;
   }
 
@@ -87,7 +87,7 @@ public class Connection {
    *
    * @param fromActorAddress The toActorAddress in the connection
    */
-  public void setFromActorAddress(String fromActorAddress) {
+  void setFromActorAddress(String fromActorAddress) {
     this.fromActorAddress = fromActorAddress;
   }
 
@@ -99,7 +99,7 @@ public class Connection {
    * @param receiverAddress The receivers address
    * @return True if the sender can make the connection
    */
-  public boolean hasPermission(String senderAddress, String receiverAddress) {
+  boolean hasPermission(String senderAddress, String receiverAddress) {
     return toActorAddress.equals(receiverAddress) && fromActorAddress.equals(senderAddress);
   }
 
