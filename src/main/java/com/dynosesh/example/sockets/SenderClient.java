@@ -32,9 +32,9 @@ public class SenderClient implements Runnable {
     try {
       Socket socket = new Socket("localhost", port);
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-      objectOutputStream.writeObject(new SendableString("Hello, world", "1"));
-//      objectOutputStream.writeObject(new SendableInteger(7, "1"));
-//      objectOutputStream.writeObject(new SendableInteger(10, "1"));
+//      objectOutputStream.writeObject(new SendableString("Hello, world", "1"));
+      objectOutputStream.writeObject(new SendableInteger(7, "1"));
+      objectOutputStream.writeObject(new SendableInteger(10, "1"));
       ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
       Sendable sendable = (Sendable) objectInputStream.readObject();
       int lengthOfString = (int) sendable.getPayload();

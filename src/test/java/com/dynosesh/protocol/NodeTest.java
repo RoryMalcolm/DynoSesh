@@ -30,11 +30,12 @@ class NodeTest {
 
   @Test
   void addConnection() {
-    startNode.addConnection(new Connection("1", "1"));
+    startNode.addConnection(new Connection("0", "1", "1"));
     assertEquals(startNode.getConnections().get(0).getNode(), nonStartNode);
     boolean thrown = false;
     try {
-      startNode.addConnection(new Connection("1", "1"));
+      startNode.addConnection(new Connection("0",
+          "1", "1"));
     } catch (Exception e) {
       thrown = true;
     }
@@ -44,7 +45,7 @@ class NodeTest {
   @Test
   void getConnections() {
     assertEquals(0, startNode.getConnections().size());
-    startNode.addConnection(new Connection("1", "1"));
+    startNode.addConnection(new Connection("0", "1", "1"));
     assertEquals(1, startNode.getConnections().size());
   }
 

@@ -23,24 +23,6 @@ public class Connection {
    *
    * @param toActorAddress The toActorAddress of the valid traversing toActor
    * @param nodeAddress The addNode the connection is pointing to
-   */
-  public Connection(String toActorAddress, String nodeAddress) {
-    this.toActorAddress = toActorAddress;
-    this.nodeAddress = nodeAddress;
-  }
-
-  /**
-   * Used to represent connections between nodes and restrict access to those that validly can move
-   * between them.
-   * <p>
-   * In effect a connection is a link between two nodes such as: A -> B However with a protocol this
-   * connection is only allowed to be traversed by valid actors this class helps to restrict this An
-   * example of a Connection object that only allows for the toActor with the toActorAddress "1" to
-   * proceed is as follows: A - (1) -> B
-   * </p>
-   *
-   * @param toActorAddress The toActorAddress of the valid traversing toActor
-   * @param nodeAddress The addNode the connection is pointing to
    * @param fromActorAddress The actor address the connection is coming from
    */
   public Connection(String toActorAddress, String fromActorAddress, String nodeAddress) {
@@ -113,11 +95,12 @@ public class Connection {
   /**
    * Returns true if the sender can make the connection.
    *
-   * @param sender The sender's toActorAddress
+   * @param senderAddress The sender's address
+   * @param receiverAddress The receivers address
    * @return True if the sender can make the connection
    */
-  public boolean hasPermission(String sender) {
-    return toActorAddress.equals(sender);
+  public boolean hasPermission(String senderAddress, String receiverAddress) {
+    return toActorAddress.equals(receiverAddress) && fromActorAddress.equals(senderAddress);
   }
 
   /**
@@ -131,7 +114,7 @@ public class Connection {
     try {
       Connection parsed = (Connection) obj;
       return this.toActorAddress.equals(parsed.toActorAddress) && this.nodeAddress
-          .equals(parsed.nodeAddress);
+          .equals(parsed.nodeAddress) && this.fromActorAddress.equals(parsed.fromActorAddress);
     } catch (Exception e) {
       return false;
     }

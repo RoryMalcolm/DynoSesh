@@ -77,7 +77,7 @@ public class SocketActor implements Actor, Runnable {
         this.objectInputStream = new ObjectInputStream(inputStream);
       }
       Sendable sendable = (Sendable) this.objectInputStream.readObject();
-      protocolMonitor.send(this.address, sendable.getTarget(), sendable);
+      protocolMonitor.send(sendable.getTarget(), this.address, sendable);
       return sendable;
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();

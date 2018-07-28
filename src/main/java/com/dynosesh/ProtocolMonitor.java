@@ -56,17 +56,17 @@ public class ProtocolMonitor {
   /**
    * Sends a message, and ensures it complies to the protocol.
    *
-   * @param senderAddress The address of the toActor sending the request
    * @param receiverAddress The address of the toActor to send the message to
+   * @param senderAddress The address of the toActor sending the request
    * @param payload The message to send to an toActor
    * @throws InvalidSessionException Thrown when there is a session type error
    */
-  public void send(String senderAddress,
-      String receiverAddress, Sendable payload) throws InvalidSessionException {
+  public void send(String receiverAddress, String senderAddress,
+      Sendable payload) throws InvalidSessionException {
     if (this.actorMap.size() == 0) {
       throw new IllegalArgumentException("The protocol does not currently contain actors");
     }
-    if (this.protocol.checkStatusAndProgress(senderAddress, payload)) {
+    if (this.protocol.checkStatusAndProgress(receiverAddress, senderAddress, payload)) {
       try {
         this.actorMap.get(receiverAddress).sendTask(payload);
       } catch (NullPointerException e) {

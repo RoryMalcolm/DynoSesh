@@ -32,33 +32,40 @@ public class Runner {
   }
 
   private static void firstSideOfGraph(ProtocolBuilder protocolBuilder) {
-    protocolBuilder.node()
+    protocolBuilder
+        .node()
         .payload(null)
         .connection()
-        .toActor("0")
+        .toActor("1")
+        .fromActor("0")
         .to("1")
         .connection()
-        .toActor("0")
+        .toActor("1")
+        .fromActor("0")
         .to("3")
         .node()
         .payload(SendableString.class)
         .connection()
-        .toActor("1")
+        .toActor("0")
+        .fromActor("1")
         .to("2");
   }
 
   private static void secondSideOfGraph(ProtocolBuilder protocolBuilder) {
-    protocolBuilder.node()
-        .payload(SendableInteger.class)
+    protocolBuilder
         .node()
         .payload(SendableInteger.class)
-        .connection()
-        .toActor("0")
-        .to("4")
         .node()
         .payload(SendableInteger.class)
         .connection()
         .toActor("1")
+        .fromActor("0")
+        .to("4")
+        .node()
+        .payload(SendableInteger.class)
+        .connection()
+        .toActor("0")
+        .fromActor("1")
         .to("5")
         .node()
         .payload(SendableInteger.class);
