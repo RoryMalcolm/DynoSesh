@@ -23,7 +23,9 @@ Protocol protocol = protocolBuilder
           .toActor("1")
           .to("1")
       .build();
+
 ProtocolMonitor monitor = new ProtocolMonitor(protocol);
+
 monitor.addActor(new QueueActor());
 monitor.addActor(new QueueActor());
 
